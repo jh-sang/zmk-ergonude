@@ -1,0 +1,10 @@
+file_format: "1"
+id: ergonude
+name: ergonude
+type: shield
+url: 
+requires: [nrfmicro_13_52840]
+features:
+  - keys
+  - studio
+  - underglow
