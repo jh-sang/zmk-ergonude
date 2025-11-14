@@ -72,3 +72,7 @@
 &gpio1 {
     status = "okay";
 };
+
+&adc {
+    status = "okay";
+};
