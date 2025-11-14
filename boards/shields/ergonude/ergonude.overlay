@@ -1,4 +1,5 @@
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <nordic/nrf52840_qiaa.dtsi>
 #include <dt-bindings/led/led.h>
 #include "ergonude-layouts.dtsi"
 #include "ergonude.dtsi"
@@ -62,8 +63,4 @@
                 RC(4,1) RC(4,2)         RC(4,4)         RC(4,6)         RC(4,8) RC(4,9)          RC(4,11)          RC(4,13) RC(4,14)          RC(4,16) RC(4,17) RC(4,18)
         >;
     };
-};
-
-&nfc {
-    status = "disabled";
 };
