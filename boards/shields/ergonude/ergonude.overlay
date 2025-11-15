@@ -86,10 +86,6 @@
     status = "disabled";
 };
 
-&12c0 {
-    status = "disabled";
-};
-
 &spi0 {
     status = "disabled";
 };
