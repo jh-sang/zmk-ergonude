@@ -10,14 +10,6 @@
             low-power-enable;
         };
     };
-
-    gpio_group: gpio_group {
-        group1 {
-            psels = <NRF_PSEL(GPIO, 0, 5)>;
-            nordic,drive-mode = <NRF_DRIVE_S0S1>;
-            bias-pull-down;
-        };
-    };
 };
 
 &spi3 {
