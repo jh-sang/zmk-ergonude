@@ -15,7 +15,22 @@
         zmk,physical-layout = &physical_layout0;
         zmk,studio-rpc-uart = &uart0;
 		zmk,underglow = &led_strip;
+		zmk,battery = &vbatt;
     };
+
+    /* 在根节点添加NFC禁用 */
+    nfc_override: nfc_override {
+        compatible = "nordic,nfc-pins";
+        status = "disabled";
+    };
+
+	vbatt: vbatt {
+		compatible = "zmk,battery-voltage-divider";
+		label = "VBATT";
+		io-channels = <&adc 2>; 
+		output-ohms = <2000000>;
+		full-ohms = <(2000000 + 820000)>;
+	};
 
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
@@ -64,7 +79,7 @@
     };
 };
 
-&gpiote {
+&adc {
 	status = "okay";
 };
 
@@ -72,10 +87,7 @@
 	status = "okay";
 };
 
-&gpio1 {
-	status = "okay";
-};
 
-&i2c0 {
-    status = "disabled";  // 释放 P0.05/P0.06，如果它们是默认 I2C 引脚
-};
+&uart0 {
+        status = "disabled";  // 示例：禁用 UART 以释放可能冲突的引脚
+    };
