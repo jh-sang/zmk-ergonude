@@ -1,4 +1,3 @@
-/* 自定义引脚配置文件 - custom_pinmux.c */
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
 #include <zephyr/init.h>
@@ -14,21 +13,26 @@ static int custom_pinmux_init(void) {
         return -ENODEV;
     }
     
-    /* 等待原初始化完成 */
-    k_msleep(5);
+    // 更长的延迟确保原初始化完全完成
+    k_msleep(50);
     
-    /* 重新配置 P0.05 为矩阵行输入引脚 */
-    int ret = gpio_pin_configure(gpio0, 5, 
-        GPIO_INPUT | GPIO_PULL_UP | GPIO_ACTIVE_LOW);
+    /* 配置为输入模式，根据你的矩阵电路选择上拉或下拉 */
+    #if defined(CONFIG_ZMK_MATRIX_PULL_UP)
+    int ret = gpio_pin_configure(gpio0, 5, GPIO_INPUT | GPIO_PULL_UP);
+    #elif defined(CONFIG_ZMK_MATRIX_PULL_DOWN)
+    int ret = gpio_pin_configure(gpio0, 5, GPIO_INPUT | GPIO_PULL_DOWN);
+    #else
+    int ret = gpio_pin_configure(gpio0, 5, GPIO_INPUT);
+    #endif
     
     if (ret == 0) {
-        printk("Successfully configured P0.05 as matrix row input\n");
+        printk("Custom pinmux: P0.05 configured as matrix row\n");
     } else {
-        printk("Failed to configure P0.05: %d\n", ret);
+        printk("Custom pinmux: Failed to configure P0.05: %d\n", ret);
     }
     
     return ret;
 }
 
-/* 使用 POST_KERNEL 和较高优先级确保覆盖 */
-SYS_INIT(custom_pinmux_init, POST_KERNEL, 80);
+// 使用更高的优先级确保在原有初始化之后运行
+SYS_INIT(custom_pinmux_init, POST_KERNEL, 95);
