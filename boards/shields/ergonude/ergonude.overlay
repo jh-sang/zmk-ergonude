@@ -86,3 +86,6 @@
     status = "disabled";
 };
 
+&spi0 {
+    status = "disabled";
+};
