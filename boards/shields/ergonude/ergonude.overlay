@@ -36,10 +36,6 @@
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
 
-        pinctrl-0 = <&matrix_default>;
-        pinctrl-1 = <&matrix_sleep>;
-        pinctrl-names = "default", "sleep";
-
         diode-direction = "col2row";
         row-gpios
             = <&gpio0 5  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
@@ -84,13 +80,13 @@
 };
 
 &adc {
-	status = "okay";
+    status = "okay";
+    io-channels = <&adc 2>
 };
 
 &gpio0 {
 	status = "okay";
 };
-
 
 &uart0 {
         status = "disabled";  // 示例：禁用 UART 以释放可能冲突的引脚

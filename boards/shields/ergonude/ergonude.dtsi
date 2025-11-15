@@ -10,19 +10,6 @@
             low-power-enable;
         };
     };
-
-    matrix_default: matrix_default {
-        group1 {
-            psels = <NRF_PSEL(GPIO, 0, 5)>;
-            bias-pull-down;  // 下拉电阻用于输入
-        };
-    };
-
-    matrix_sleep: matrix_sleep {
-        group1 {
-            psels = <NRF_PSEL(GPIO, 0, 5)>;
-        };
-    };
 };
 
 &spi3 {
