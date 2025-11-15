@@ -17,13 +17,7 @@ static int custom_pinmux_init(void) {
     k_msleep(50);
     
     /* 配置为输入模式，根据你的矩阵电路选择上拉或下拉 */
-    #if defined(CONFIG_ZMK_MATRIX_PULL_UP)
-    int ret = gpio_pin_configure(gpio0, 5, GPIO_INPUT | GPIO_PULL_UP);
-    #elif defined(CONFIG_ZMK_MATRIX_PULL_DOWN)
     int ret = gpio_pin_configure(gpio0, 5, GPIO_INPUT | GPIO_PULL_DOWN);
-    #else
-    int ret = gpio_pin_configure(gpio0, 5, GPIO_INPUT);
-    #endif
     
     if (ret == 0) {
         printk("Custom pinmux: P0.05 configured as matrix row\n");
