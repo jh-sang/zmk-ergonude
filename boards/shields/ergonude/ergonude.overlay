@@ -15,7 +15,6 @@
         zmk,kscan = &kscan0;
         zmk,physical-layout = &physical_layout0;
         zmk,studio-rpc-uart = &uart0;
-        zephyr,code-partition = &code_partition;
 		zmk,underglow = &led_strip;
 		zmk,battery = &vbatt;
     };
@@ -40,9 +39,9 @@
 
         diode-direction = "col2row";
         row-gpios
-            = <&gpio0 5  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN | GPIO_INPUT)>,
+            = <&gpio0 5  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
               <&gpio0 26 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-              <&gpio0 6  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN | GPIO_INPUT)>,
+              <&gpio0 6  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
               <&gpio0 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
               <&gpio0 7  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
         col-gpios
@@ -100,3 +99,7 @@
 &usbd {
 	status = "okay";
 };
+
+&uart0 {
+        status = "disabled";  // 示例：禁用 UART 以释放可能冲突的引脚
+    };
