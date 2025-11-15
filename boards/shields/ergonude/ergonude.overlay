@@ -81,7 +81,7 @@
 
 &adc {
     status = "okay";
-    io-channels = <&adc 2>
+    io-channels = <&adc 2>;
 };
 
 &gpio0 {
