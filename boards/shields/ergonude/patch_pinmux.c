@@ -1,25 +1,25 @@
-/* patch_pinmux.c - 放在你的 shield 目录下 */
+/* override_pinmux.c */
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
 #include <zephyr/init.h>
 #include <zephyr/drivers/gpio.h>
 
-/* 重写原有的 pinmux_nrfmicro_init 函数 */
+/* 声明原函数为弱符号，这样我们可以覆盖它 */
+__weak int pinmux_nrfmicro_init(void);
+
+/* 我们的实现覆盖弱符号 */
 int pinmux_nrfmicro_init(void) {
-    /* 完全跳过对 p0.05 的配置，或者按需配置 */
+    /* 只执行必要的初始化，跳过 p0.05 的特殊处理 */
 #if (CONFIG_BOARD_NRFMICRO_13 || CONFIG_BOARD_NRFMICRO_13_52833)
     const struct device *p0 = DEVICE_DT_GET(DT_NODELABEL(gpio0));
     
-    /* 注释掉原有的充电器配置，改为输入模式 */
-    // #if CONFIG_BOARD_NRFMICRO_CHARGER
-    // gpio_pin_configure(p0, 5, GPIO_OUTPUT);
-    // gpio_pin_set(p0, 5, 0);
-    // #else
-    gpio_pin_configure(p0, 5, GPIO_INPUT); // 或者完全跳过这行
-    // #endif
+    if (device_is_ready(p0)) {
+        /* 对于 p0.05，我们只配置为输入，不进行充电器相关配置 */
+        gpio_pin_configure(p0, 5, GPIO_INPUT);
+        
+        /* 其他原有的初始化可以保留 */
+        // ... 其他引脚的初始化
+    }
 #endif
     return 0;
 }
-
-/* 确保这个初始化替代原有的 */
-SYS_INIT(pinmux_nrfmicro_init, PRE_KERNEL_1, CONFIG_PINMUX_INIT_PRIORITY);
