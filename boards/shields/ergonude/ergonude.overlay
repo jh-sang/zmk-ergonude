@@ -103,3 +103,7 @@
 &uart0 {
         status = "disabled";  // 示例：禁用 UART 以释放可能冲突的引脚
     };
+
+&i2c0 {
+    status = "disabled";  // 释放 P0.05/P0.06，如果它们是默认 I2C 引脚
+};
