@@ -17,7 +17,13 @@
         zmk,studio-rpc-uart = &uart0;
         zephyr,code-partition = &code_partition;
 		zmk,underglow = &led_strip;
+        zmk,board-charger = &disabled_charger;
 		zmk,battery = &vbatt;
+    };
+
+    disabled_charger: disabled_charger {
+        compatible = "zmk,board-charger";
+        status = "disabled";
     };
 
 	vbatt: vbatt {
@@ -80,10 +86,6 @@
     io-channels = <&adc 2>;
 };
 
-&gpiote {
-    status = "okay";
-};
-
 &gpio0 {
     status = "okay";
 };
@@ -96,6 +98,3 @@
     status = "disabled";
     };
 
-&i2c0 {
-    status = "disabled";
-    };
