@@ -64,10 +64,6 @@
     };
 };
 
-&adc { 
-    status = "disabled"; 
-};
-
 &gpiote {
 	status = "okay";
 };
@@ -77,10 +73,6 @@
 };
 
 &gpio1 {
-	status = "okay";
-};
-
-&usbd {
 	status = "okay";
 };
 
