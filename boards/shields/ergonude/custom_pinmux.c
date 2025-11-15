@@ -18,7 +18,7 @@ static int custom_pinmux_init(void) {
     k_msleep(5);
     
     /* 重新配置 P0.05 为矩阵行输入引脚 */
-    int ret = gpio_pin_configure(gpio0, 5, GPIO_INPUT | GPIO_PULL_DOWN);
+    int ret = gpio_pin_configure(gpio0, 5, GPIO_INPUT | GPIO_PULL_UP);
     
     if (ret == 0) {
         printk("Successfully configured P0.05 as matrix row input\n");
