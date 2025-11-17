@@ -9,105 +9,129 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define P0_05_PIN  5
 
 static const struct device *gpio0_dev;
+static struct k_work_delayable fix_work;
 
-// 尝试不同的配置来增强P0.05的下拉能力
-static int enhance_p0_05_pull_strength(void)
+// 配置P0.05为强下拉输入
+static int configure_p0_05_strong_pull(void)
 {
     int ret;
     
-    gpio0_dev = DEVICE_DT_GET(P0_05_PORT);
+    if (!gpio0_dev) {
+        gpio0_dev = DEVICE_DT_GET(P0_05_PORT);
+    }
+    
     if (!device_is_ready(gpio0_dev)) {
         LOG_ERR("GPIO0 device not ready");
         return -ENODEV;
     }
     
-    LOG_WRN("Attempting to enhance P0.05 pull strength");
-    
-    // 方法1: 首先尝试标准输入下拉配置
+    // 尝试配置为输入带下拉
     ret = gpio_pin_configure(gpio0_dev, P0_05_PIN, GPIO_INPUT | GPIO_PULL_DOWN);
     if (ret < 0) {
-        LOG_ERR("Standard pull-down failed: %d", ret);
+        LOG_ERR("Failed to configure P0.05 with pull-down: %d", ret);
         return ret;
     }
     
-    LOG_INF("P0.05 standard pull-down configured");
-    
-    // 验证配置
-    int state = gpio_pin_get(gpio0_dev, P0_05_PIN);
-    LOG_INF("P0.05 state after standard config: %d", state);
-    
+    LOG_INF("P0.05 configured as input with pull-down");
     return 0;
 }
 
-// 尝试使用nRF特定配置增强下拉
-static int nrf_enhance_p0_05_pull(void)
-{
-    // 对于nRF52系列，我们可以尝试通过nrfx直接配置更强的下拉
-    // 注意：这需要包含nRF特定的头文件
-    
-    #ifdef CONFIG_HAS_NRFX
-    #include <nrfx_gpiote.h>
-    #include <hal/nrf_gpio.h>
-    
-    // 使用nRF HAL直接配置引脚
-    nrf_gpio_cfg_input(P0_05_PIN, NRF_GPIO_PIN_PULLDOWN);
-    
-    LOG_INF("P0.05 configured with nRF-specific pull-down");
-    return 0;
-    #else
-    LOG_ERR("nRF specific enhancements not available");
-    return -ENOTSUP;
-    #endif
-}
-
-// 备用方案：尝试将P0.05配置为强推挽输出，在扫描时动态切换
-static int configure_p0_05_as_strong_output(void)
+// 备用方案：配置为强输出低电平
+static int configure_p0_05_strong_output(void)
 {
     int ret;
     
-    // 配置为强推挽输出，低电平
-    ret = gpio_pin_configure(gpio0_dev, P0_05_PIN, 
-                           GPIO_OUTPUT | GPIO_OUTPUT_INIT_LOW | GPIO_DRIVE_STRONG);
+    if (!gpio0_dev) {
+        gpio0_dev = DEVICE_DT_GET(P0_05_PORT);
+    }
+    
+    if (!device_is_ready(gpio0_dev)) {
+        LOG_ERR("GPIO0 device not ready");
+        return -ENODEV;
+    }
+    
+    // 配置为强输出，初始低电平
+    ret = gpio_pin_configure(gpio0_dev, P0_05_PIN, GPIO_OUTPUT | GPIO_OUTPUT_INIT_LOW);
     if (ret < 0) {
         LOG_ERR("Failed to configure P0.05 as strong output: %d", ret);
         return ret;
     }
     
-    LOG_WRN("P0.05 configured as STRONG OUTPUT (alternative approach)");
+    LOG_WRN("P0.05 configured as STRONG OUTPUT (low) - alternative approach");
     return 0;
+}
+
+// 检查P0.05当前状态
+static void check_p0_05_state(void)
+{
+    if (!gpio0_dev || !device_is_ready(gpio0_dev)) {
+        return;
+    }
+    
+    int state = gpio_pin_get(gpio0_dev, P0_05_PIN);
+    static int last_state = -1;
+    
+    if (state != last_state) {
+        LOG_INF("P0.05 state changed: %d -> %d", last_state, state);
+        last_state = state;
+    }
+}
+
+// 定期修复处理函数
+static void fix_handler(struct k_work *work)
+{
+    static int fix_count = 0;
+    
+    // 定期重新配置P0.05
+    int ret = configure_p0_05_strong_pull();
+    
+    if (ret != 0) {
+        LOG_WRN("Pull-down configuration failed, trying output method");
+        configure_p0_05_strong_output();
+    }
+    
+    fix_count++;
+    
+    // 检查状态（仅在前几次和偶尔检查）
+    if (fix_count <= 5 || (fix_count % 20 == 0)) {
+        check_p0_05_state();
+    }
+    
+    // 动态调整修复频率
+    uint32_t delay_ms = (fix_count < 10) ? 100 :  // 前期快速修复
+                        (fix_count < 30) ? 500 :  // 中期中等频率
+                        1000;                     // 后期较低频率
+    
+    k_work_reschedule(&fix_work, K_MSEC(delay_ms));
 }
 
 static int gpio_p0_05_fix_init(void)
 {
-    LOG_INF("Initializing P0.05 pull strength enhancement");
+    LOG_INF("Initializing P0.05 voltage fix");
     
-    // 等待系统稳定
-    k_msleep(150);
+    // 获取GPIO设备
+    gpio0_dev = DEVICE_DT_GET(P0_05_PORT);
+    if (!device_is_ready(gpio0_dev)) {
+        LOG_ERR("GPIO0 device not ready at init");
+        return -ENODEV;
+    }
     
-    // 首先尝试标准方法
-    int ret = enhance_p0_05_pull_strength();
-    
+    // 立即应用修复
+    int ret = configure_p0_05_strong_pull();
     if (ret != 0) {
-        LOG_ERR("Standard method failed, trying nRF-specific method");
-        
-        // 尝试nRF特定方法
-        ret = nrf_enhance_p0_05_pull();
-        
-        if (ret != 0) {
-            LOG_ERR("nRF method failed, trying output approach");
-            
-            // 最后尝试输出方法
-            ret = configure_p0_05_as_strong_output();
-        }
+        LOG_WRN("Initial pull-down failed, trying output method");
+        configure_p0_05_strong_output();
     }
     
-    if (ret == 0) {
-        LOG_INF("P0.05 configuration completed successfully");
-    } else {
-        LOG_ERR("All P0.05 configuration methods failed");
-    }
+    // 记录初始状态
+    check_p0_05_state();
     
-    return ret;
+    // 启动持续修复
+    k_work_init_delayable(&fix_work, fix_handler);
+    k_work_reschedule(&fix_work, K_MSEC(50));
+    
+    LOG_INF("P0.05 voltage fix initialized");
+    return 0;
 }
 
 SYS_INIT(gpio_p0_05_fix_init, POST_KERNEL, 70);
