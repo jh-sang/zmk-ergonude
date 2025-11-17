@@ -32,11 +32,6 @@
         color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
     };
 };
-
-
-/dts-v1/;
-/plugin/;
-
 / {
     // 禁用可能使用P0.05的外设
     fragment@0 {
