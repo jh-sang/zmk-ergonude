@@ -11,44 +11,22 @@
 #include <zephyr/init.h>
 #include <zephyr/sys/printk.h>
 
-/* nRF52840 GPIO 寄存器基地址 */
-#define NRF_P0_BASE              0x50000000UL
-#define NRF_GPIO_BASE(port)      (NRF_P0_BASE + 0x700UL)
-
-/* GPIO 寄存器偏移量 */
-#define GPIO_OUT_OFFSET          0x504
-#define GPIO_OUTSET_OFFSET       0x508
-#define GPIO_OUTCLR_OFFSET       0x50C
-#define GPIO_IN_OFFSET           0x510
-#define GPIO_DIR_OFFSET          0x514
-#define GPIO_DIRSET_OFFSET       0x518
-#define GPIO_DIRCLR_OFFSET       0x51C
-#define GPIO_LATCH_OFFSET        0x520
-#define GPIO_DETECTMODE_OFFSET   0x524
-#define GPIO_PIN_CNF_OFFSET(n)   (0x700 + ((n) * 4))
-
-/* 寄存器访问宏 */
-#define NRF_GPIO_REG(port, offset) (*(volatile uint32_t *)(NRF_GPIO_BASE(port) + (offset)))
+/* 使用Zephyr/nRF SDK中已有的定义，避免重复定义 */
+#include <hal/nrf_gpio.h>
 
 /* 矩阵行引脚定义 */
 #define MATRIX_ROW_PIN           5   /* P0.05 */
 
-/* PIN_CNF 寄存器位定义 */
-#define GPIO_PIN_CNF_DIR_Pos     0
-#define GPIO_PIN_CNF_DIR_Msk     (1UL << GPIO_PIN_CNF_DIR_Pos)
-#define GPIO_PIN_CNF_INPUT_Pos   1
-#define GPIO_PIN_CNF_INPUT_Msk   (1UL << GPIO_PIN_CNF_INPUT_Pos)
-#define GPIO_PIN_CNF_PULL_Pos    2
-#define GPIO_PIN_CNF_PULL_Msk    (3UL << GPIO_PIN_CNF_PULL_Pos)
-#define GPIO_PIN_CNF_DRIVE_Pos   8
-#define GPIO_PIN_CNF_DRIVE_Msk   (0xFUL << GPIO_PIN_CNF_DRIVE_Pos)
-#define GPIO_PIN_CNF_SENSE_Pos   16
-#define GPIO_PIN_CNF_SENSE_Msk   (3UL << GPIO_PIN_CNF_SENSE_Pos)
+/* 自定义寄存器访问宏 - 使用不同的命名避免冲突 */
+#define CUSTOM_GPIO_OUTSET       (*(volatile uint32_t *)(NRF_P0_BASE + 0x508))
+#define CUSTOM_GPIO_OUTCLR       (*(volatile uint32_t *)(NRF_P0_BASE + 0x50C))
+#define CUSTOM_GPIO_DIRSET       (*(volatile uint32_t *)(NRF_P0_BASE + 0x518))
+#define CUSTOM_GPIO_DIRCLR       (*(volatile uint32_t *)(NRF_P0_BASE + 0x51C))
+#define CUSTOM_GPIO_IN           (*(volatile uint32_t *)(NRF_P0_BASE + 0x510))
 
-/* 下拉电阻配置值 */
-#define GPIO_PULL_DISABLED       0
-#define GPIO_PULL_DOWN           1
-#define GPIO_PULL_UP             3
+/* 自定义PIN_CNF位定义 - 使用不同的前缀 */
+#define CUSTOM_GPIO_PULL_DOWN    1
+#define CUSTOM_GPIO_PULL_UP      3
 
 /**
  * @brief 读取 P0.05 引脚的当前 PIN_CNF 配置
@@ -56,7 +34,7 @@
  */
 static uint32_t read_pin_configuration(void)
 {
-    return NRF_GPIO_REG(0, GPIO_PIN_CNF_OFFSET(MATRIX_ROW_PIN));
+    return NRF_P0->PIN_CNF[MATRIX_ROW_PIN];
 }
 
 /**
@@ -64,15 +42,15 @@ static uint32_t read_pin_configuration(void)
  */
 static void print_pin_configuration(const char *label, uint32_t config)
 {
-    printk("%s - PIN_CNF[%d]: 0x%08lX\n", label, MATRIX_ROW_PIN, config);
+    printk("%s - PIN_CNF[%d]: 0x%08X\n", label, MATRIX_ROW_PIN, config);
     printk("  DIR: %s, INPUT: %s, PULL: %s\n",
            (config & GPIO_PIN_CNF_DIR_Msk) ? "Output" : "Input",
            (config & GPIO_PIN_CNF_INPUT_Msk) ? "Connected" : "Disconnected",
-           ((config >> GPIO_PIN_CNF_PULL_Pos) & 0x3) == GPIO_PULL_DOWN ? "Pull-down" :
-           ((config >> GPIO_PIN_CNF_PULL_Pos) & 0x3) == GPIO_PULL_UP ? "Pull-up" : "Disabled");
-    printk("  DRIVE: 0x%01lX, SENSE: 0x%01lX\n",
-           (config >> GPIO_PIN_CNF_DRIVE_Pos) & 0xF,
-           (config >> GPIO_PIN_CNF_SENSE_Pos) & 0x3);
+           ((config >> GPIO_PIN_CNF_PULL_Pos) & 0x3) == CUSTOM_GPIO_PULL_DOWN ? "Pull-down" :
+           ((config >> GPIO_PIN_CNF_PULL_Pos) & 0x3) == CUSTOM_GPIO_PULL_UP ? "Pull-up" : "Disabled");
+    printk("  DRIVE: 0x%01X, SENSE: 0x%01X\n",
+           (uint32_t)((config >> GPIO_PIN_CNF_DRIVE_Pos) & 0xF),
+           (uint32_t)((config >> GPIO_PIN_CNF_SENSE_Pos) & 0x3));
 }
 
 /**
@@ -81,7 +59,7 @@ static void print_pin_configuration(const char *label, uint32_t config)
  */
 static uint32_t read_pin_state(void)
 {
-    return (NRF_GPIO_REG(0, GPIO_IN_OFFSET) >> MATRIX_ROW_PIN) & 1;
+    return (CUSTOM_GPIO_IN >> MATRIX_ROW_PIN) & 1;
 }
 
 /**
@@ -90,67 +68,39 @@ static uint32_t read_pin_state(void)
  */
 static void enhance_pulldown_strength(void)
 {
-    volatile uint32_t *dirset = &NRF_GPIO_REG(0, GPIO_DIRSET_OFFSET);
-    volatile uint32_t *dirclr = &NRF_GPIO_REG(0, GPIO_DIRCLR_OFFSET);
-    volatile uint32_t *outclr = &NRF_GPIO_REG(0, GPIO_OUTCLR_OFFSET);
-    
     /* 短暂配置为输出低电平 */
-    *dirset = (1UL << MATRIX_ROW_PIN);   /* 设置为输出模式 */
-    *outclr = (1UL << MATRIX_ROW_PIN);   /* 输出低电平 */
+    CUSTOM_GPIO_DIRSET = (1UL << MATRIX_ROW_PIN);   /* 设置为输出模式 */
+    CUSTOM_GPIO_OUTCLR = (1UL << MATRIX_ROW_PIN);   /* 输出低电平 */
     
     /* 保持低电平输出一段时间（约10us） */
     k_busy_wait(10);
     
     /* 恢复为输入模式，此时引脚被强拉到低电平 */
-    *dirclr = (1UL << MATRIX_ROW_PIN);
+    CUSTOM_GPIO_DIRCLR = (1UL << MATRIX_ROW_PIN);
     
     printk("Enhanced pulldown strength for P0.%02d\n", MATRIX_ROW_PIN);
 }
 
 /**
  * @brief 配置 P0.05 为矩阵行引脚并加强下拉能力
- * 
- * 从最底层配置寄存器，确保引脚为：
- * - 输入模式
- * - 启用输入缓冲器
- * - 强下拉电阻
- * - 标准驱动强度
- * - 禁用感应功能
  */
 static void configure_matrix_row_pin(void)
 {
-    volatile uint32_t *pin_cnf = &NRF_GPIO_REG(0, GPIO_PIN_CNF_OFFSET(MATRIX_ROW_PIN));
-    volatile uint32_t *dirclr = &NRF_GPIO_REG(0, GPIO_DIRCLR_OFFSET);
-    
     uint32_t original_config = read_pin_configuration();
     
     printk("\n=== Configuring P0.%02d as Matrix Row Pin ===\n", MATRIX_ROW_PIN);
     print_pin_configuration("Original configuration", original_config);
     
     /* 第一步：确保引脚为输入模式 */
-    *dirclr = (1UL << MATRIX_ROW_PIN);
+    CUSTOM_GPIO_DIRCLR = (1UL << MATRIX_ROW_PIN);
     
-    /* 第二步：配置 PIN_CNF 寄存器 */
-    uint32_t new_config = 0;
-    
-    /* DIR = 0 (输入模式) */
-    new_config &= ~GPIO_PIN_CNF_DIR_Msk;
-    
-    /* INPUT = 1 (连接输入缓冲器) */
-    new_config |= GPIO_PIN_CNF_INPUT_Msk;
-    
-    /* PULL = 0b01 (下拉电阻) */
-    new_config &= ~GPIO_PIN_CNF_PULL_Msk;
-    new_config |= (GPIO_PULL_DOWN << GPIO_PIN_CNF_PULL_Pos);
-    
-    /* DRIVE = 0b0000 (S0S1 标准驱动) */
-    new_config &= ~GPIO_PIN_CNF_DRIVE_Msk;
-    
-    /* SENSE = 0b00 (禁用感应) */
-    new_config &= ~GPIO_PIN_CNF_SENSE_Msk;
-    
-    /* 写入新的配置 */
-    *pin_cnf = new_config;
+    /* 第二步：配置 PIN_CNF 寄存器为输入、下拉 */
+    NRF_P0->PIN_CNF[MATRIX_ROW_PIN] = 
+        (GPIO_PIN_CNF_DIR_Input << GPIO_PIN_CNF_DIR_Pos) |
+        (GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos) |
+        (CUSTOM_GPIO_PULL_DOWN << GPIO_PIN_CNF_PULL_Pos) |
+        (GPIO_PIN_CNF_DRIVE_S0S1 << GPIO_PIN_CNF_DRIVE_Pos) |
+        (GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
     
     /* 第三步：增强下拉能力 */
     enhance_pulldown_strength();
@@ -165,7 +115,7 @@ static void configure_matrix_row_pin(void)
     
     /* 配置验证 */
     if ((final_config & GPIO_PIN_CNF_INPUT_Msk) && 
-        ((final_config >> GPIO_PIN_CNF_PULL_Pos) & 0x3) == GPIO_PULL_DOWN) {
+        ((final_config >> GPIO_PIN_CNF_PULL_Pos) & 0x3) == CUSTOM_GPIO_PULL_DOWN) {
         printk("✓ P0.%02d successfully configured as matrix row with enhanced pulldown\n", 
                MATRIX_ROW_PIN);
     } else {
@@ -181,17 +131,15 @@ static void monitor_pin_status(void)
     uint32_t pin_state = read_pin_state();
     uint32_t pin_config = read_pin_configuration();
     
-    printk("P0.%02d Monitor - State: %d, Config: 0x%08lX\n", 
+    printk("P0.%02d Monitor - State: %d, Config: 0x%08X\n", 
            MATRIX_ROW_PIN, pin_state, pin_config);
 }
 
 /**
- * @brief 初始化函数 - 在系统启动时调用
+ * @brief 初始化函数 - 在系统启动时调用（无参数版本）
  */
-static int gpio_custom_init(const struct device *dev)
+static int gpio_custom_init(void)
 {
-    ARG_UNUSED(dev);
-    
     printk("\n");
     printk("========================================\n");
     printk("nRF52840 GPIO Custom Configuration\n");
