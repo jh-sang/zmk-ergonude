@@ -2,52 +2,20 @@
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/logging/log.h>
-#include <zephyr/sys/printk.h>
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #define P0_05_PORT DT_NODELABEL(gpio0)
 #define P0_05_PIN  5
 
-// 使用系统提供的nRF头文件
-#include <hal/nrf_gpio.h>
-
 static const struct device *gpio0_dev;
+static struct k_work_delayable fix_work;
 
-// 直接使用nRF GPIO HAL配置P0.05
-static void direct_configure_p0_05(void)
+// 配置P0.05为输入下拉
+static int configure_p0_05(void)
 {
-    LOG_INF("Configuring P0.05 via nRF GPIO HAL");
+    int ret;
     
-    // 使用nRF HAL直接配置引脚
-    nrf_gpio_cfg_input(P0_05_PIN, NRF_GPIO_PIN_PULLDOWN);
-    
-    LOG_INF("P0.05 configured using nRF GPIO HAL");
-}
-
-// 验证配置
-static void verify_p0_05_configuration(void)
-{
-    // 读取PIN_CNF寄存器
-    uint32_t pincnf = nrf_gpio_pin_cfg_get(P0_05_PIN);
-    
-    LOG_INF("P0.05 PIN_CNF[%d] = 0x%08x", P0_05_PIN, pincnf);
-    
-    // 解析配置
-    uint32_t dir = (pincnf & GPIO_PIN_CNF_DIR_Msk) >> GPIO_PIN_CNF_DIR_Pos;
-    uint32_t input = (pincnf & GPIO_PIN_CNF_INPUT_Msk) >> GPIO_PIN_CNF_INPUT_Pos;
-    uint32_t pull = (pincnf & GPIO_PIN_CNF_PULL_Msk) >> GPIO_PIN_CNF_PULL_Pos;
-    
-    LOG_INF("P0.05 config - DIR: %s, INPUT: %s, PULL: %s",
-           dir == GPIO_PIN_CNF_DIR_Input ? "Input" : "Output",
-           input == GPIO_PIN_CNF_INPUT_Connect ? "Connected" : "Disconnected",
-           pull == GPIO_PIN_CNF_PULL_DOWN ? "PullDown" : 
-           pull == GPIO_PIN_CNF_PULL_UP ? "PullUp" : "Disabled");
-}
-
-// 使用Zephyr API作为备用
-static int zephyr_configure_p0_05(void)
-{
     if (!gpio0_dev) {
         gpio0_dev = DEVICE_DT_GET(P0_05_PORT);
     }
@@ -57,48 +25,75 @@ static int zephyr_configure_p0_05(void)
         return -ENODEV;
     }
     
-    int ret = gpio_pin_configure(gpio0_dev, P0_05_PIN, GPIO_INPUT | GPIO_PULL_DOWN);
-    if (ret == 0) {
-        LOG_INF("P0.05 Zephyr configuration successful");
-    } else {
-        LOG_ERR("P0.05 Zephyr configuration failed: %d", ret);
+    // 配置为输入带下拉
+    ret = gpio_pin_configure(gpio0_dev, P0_05_PIN, GPIO_INPUT | GPIO_PULL_DOWN);
+    if (ret < 0) {
+        LOG_ERR("Failed to configure P0.05: %d", ret);
+        return ret;
     }
-    
-    return ret;
-}
-
-// 读取引脚状态
-static void read_p0_05_state(void)
-{
-    // 通过Zephyr API读取
-    if (gpio0_dev && device_is_ready(gpio0_dev)) {
-        int state = gpio_pin_get(gpio0_dev, P0_05_PIN);
-        LOG_INF("P0.05 state (Zephyr API): %d", state);
-    }
-}
-
-static int gpio_p0_05_hal_init(void)
-{
-    LOG_INF("=== P0.05 HAL INITIALIZATION ===");
-    
-    // 延迟确保系统基本初始化完成
-    k_msleep(100);
-    
-    // 方法1: 使用nRF HAL直接配置
-    direct_configure_p0_05();
-    
-    // 验证配置
-    verify_p0_05_configuration();
-    
-    // 方法2: Zephyr API配置（备用）
-    zephyr_configure_p0_05();
-    
-    // 读取初始状态
-    read_p0_05_state();
-    
-    LOG_INF("=== P0.05 HAL INITIALIZATION COMPLETE ===");
     
     return 0;
 }
 
-SYS_INIT(gpio_p0_05_hal_init, POST_KERNEL, 20);
+// 读取并记录P0.05状态
+static void monitor_p0_05(void)
+{
+    static int last_state = -1;
+    
+    if (!gpio0_dev || !device_is_ready(gpio0_dev)) {
+        return;
+    }
+    
+    int current_state = gpio_pin_get(gpio0_dev, P0_05_PIN);
+    
+    if (current_state != last_state) {
+        LOG_INF("P0.05 state changed: %d -> %d", last_state, current_state);
+        last_state = current_state;
+    }
+}
+
+// 修复工作处理函数
+static void fix_handler(struct k_work *work)
+{
+    static int fix_count = 0;
+    
+    // 定期重新配置
+    int ret = configure_p0_05();
+    
+    if (ret == 0) {
+        fix_count++;
+        
+        // 减少日志输出频率
+        if (fix_count <= 5 || (fix_count % 20 == 0)) {
+            LOG_INF("P0.05 fix applied (%d times)", fix_count);
+            
+            // 监控状态变化
+            monitor_p0_05();
+        }
+    } else {
+        LOG_ERR("P0.05 configuration failed on attempt %d", fix_count);
+    }
+    
+    // 动态调整频率
+    uint32_t delay_ms = (fix_count < 10) ? 100 :
+                        (fix_count < 30) ? 500 :
+                        2000;
+    
+    k_work_reschedule(&fix_work, K_MSEC(delay_ms));
+}
+
+static int gpio_p0_05_fix_init(void)
+{
+    LOG_INF("Starting P0.05 GPIO fix");
+    
+    // 立即配置一次
+    configure_p0_05();
+    
+    // 启动持续修复
+    k_work_init_delayable(&fix_work, fix_handler);
+    k_work_reschedule(&fix_work, K_MSEC(50));
+    
+    return 0;
+}
+
+SYS_INIT(gpio_p0_05_fix_init, POST_KERNEL, 50);
