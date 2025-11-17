@@ -16,15 +16,15 @@
         zmk,physical-layout = &physical_layout0;
         zmk,studio-rpc-uart = &uart0;
 		zmk,underglow = &led_strip;
-		zmk,battery = &vbatt;
+		//zmk,battery = &vbatt;
     };
-	vbatt: vbatt {
-		compatible = "zmk,battery-voltage-divider";
-		label = "VBATT";
-		io-channels = <&adc 2>; 
-		output-ohms = <2000000>;
-		full-ohms = <(2000000 + 820000)>;
-	};
+	//vbatt: vbatt {
+		//compatible = "zmk,battery-voltage-divider";
+		//label = "VBATT";
+		//io-channels = <&adc 2>; 
+		//output-ohms = <2000000>;
+		//full-ohms = <(2000000 + 820000)>;
+	//};
 
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
@@ -32,7 +32,7 @@
 
         diode-direction = "col2row";
         row-gpios
-            = <&gpio0 5  (GPIO_ACTIVE_HIGH)>,
+            = <&gpio0 5  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
               <&gpio0 26 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
               <&gpio0 6  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
               <&gpio0 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,          
