@@ -21,7 +21,7 @@ static void last_resort_scan(void)
     }
     
     // 强力确保P0.05是输入模式
-    gpio_pin_configure(gpio0_dev, P0_05_PIN, GPIO_INPUT | GPIO_PULL_DOWN);
+    gpio_pin_configure(gpio0_dev, P0_05_PIN, GPIO_INPUT | GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN);
     
     // 读取当前状态
     int state = gpio_pin_get(gpio0_dev, P0_05_PIN);
