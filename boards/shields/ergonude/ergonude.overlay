@@ -1,9 +1,7 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include <dt-bindings/led/led.h>
-#include <dt-bindings/gpio/gpio.h>
 #include "ergonude-layouts.dtsi"
 #include "ergonude.dtsi"
-#include <dt-bindings/gpio/nordic-nrf-gpio.h>
 
 
 &physical_layout0 {
@@ -34,7 +32,7 @@
         row-gpios
             = <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
               <&gpio0 26 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-              <&gpio0 20  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+              <&gpio0 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
               <&gpio0 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,          
               <&gpio0 7  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
         col-gpios
@@ -72,8 +70,3 @@
         >;
     };
 };
-
-&gpio0 {
-    status = "okay";
-};
-
