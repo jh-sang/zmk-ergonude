@@ -9,16 +9,14 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = 
-                <&out OUT_USB>,
-                <&to 0>
+                <&to 0>;
         };
 
         to_mac: behavior-macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = 
-                <&out OUT_BLE>,
-                <&to 4>
+                <&to 4>;
         };
     };
 
