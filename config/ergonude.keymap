@@ -5,63 +5,7 @@
 
 / {
     behaviors {
-        to_win: behavior-macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <
-                //&bt BT_SEL -1
-                &to 0
-            >;
-        };
 
-        to_mac: behavior-macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <
-                //&bt BT_SEL 0
-                &to 4
-            >;
-        };
-
-        to_mac_and_clear: behavior-macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-
-            bindings = <
-                &to_mac
-                &bt BT_CLR
-            >;
-        };
-
-        caps_rgb_toggle: behavior-mod-morph {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-
-            bindings = <
-                &macro_rgb_caps_off
-                &macro_rgb_caps_on
-            >;
-
-            mods = < CAPS >;
-        };
-
-        macro_rgb_caps_on: behavior-macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-
-            bindings = <
-                &rgb_sld 255 0 0
-            >;
-        };
-
-        macro_rgb_caps_off: behavior-macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-
-            bindings = <
-                &rgb_sld 0 0 255
-            >;
-        };
     };
 
     ergonude_map: keymap {
@@ -74,7 +18,7 @@
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
           &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
-          &kp LCTRL   &kp LGUI           &kp LALT            &ht SPACE 2   &mo 1    &ht to_mac 3        &kp SPACE           &kp RALT  &kp RCTRL                &kp LEFT  &kp DOWN  &kp RIGHT
+          &kp LCTRL   &kp LGUI           &kp LALT            &ht SPACE 2   &mo 1    &mo 3        &kp SPACE           &kp RALT  &kp RCTRL                &kp LEFT  &kp DOWN  &kp RIGHT
             >; 
         };
 
@@ -103,7 +47,7 @@
         3 {
             display-name = "bt_rgb";
             bindings = <
-&none          &none       &none    &none   &none    &none    &none   &none                      &none     &none    &none      &none     &none        &none       &none              &to_mac_and_clear
+&none          &none       &none    &none   &none    &none    &none   &none                      &none     &none    &none      &none     &none        &none       &none              &bt BT_CLR
                &none       &none    &none   &none    &none    &none                              &none     &none    &none      &none     &none        &none       &none     &none
                &none       &none    &none   &none    &none    &none           &kp C_VOL_UP       &none     &none    &none      &none     &none        &none                 &none
                &none       &none    &none   &none    &none    &none           &kp C_VOL_DN       &none     &none    &none      &none     &none        &none                 &kp C_BRIGHTNESS_INC 
@@ -118,7 +62,7 @@
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
           &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
-          &kp LGUI   &kp LALT           &kp LGUI            &ht SPACE 6   &mo 5    &ht to_win 3        &kp SPACE           &kp RALT  &kp RCTRL                 &kp LEFT  &kp DOWN  &kp RIGHT
+          &kp LGUI   &kp LALT           &kp LGUI            &ht SPACE 6   &mo 5    &mo 3        &kp SPACE           &kp RALT  &kp RCTRL                 &kp LEFT  &kp DOWN  &kp RIGHT
             >; 
         }; 
 
