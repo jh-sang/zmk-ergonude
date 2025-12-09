@@ -2,6 +2,7 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/rgb.h>
+#include <dt-bindings/zmk/pointing.h>
 
 / {
     macros {
@@ -49,9 +50,9 @@
             display-name = "nav_win";
             bindings = <
 &kp ESC   &kp LS(TILDE) &kp N6  &kp N7    &kp N8    &kp N9     &kp N0  &kp MINUS           &kp F7    &kp F8   &kp F9     &kp F10   &kp F11      &kp F12     &kp BSPC             &kp INS
-          &kp LC(TAB) &kp F11   &kp HOME  &kp UP    &kp END    &kp PG_UP                   &none     &mkp MB1 &mmv MOVE_UP &mkp MB2 &none       &none       &none     &none
-          &kp LC(0)   &kp F12   &kp LEFT  &kp DOWN  &kp RIGHT  &kp PG_DN      &kp BSPC     &none  &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &none       &none     &kp RET
-          &kp LSHFT   &kp LC(Z) &kp LC(X) &kp LC(C) &kp LC(V)  &none          &kp RET      &none     &none    &mkp MB3   &none     &none        &kp RSHFT             &kp PG_UP 
+          &kp LC(TAB) &kp F11   &kp HOME  &kp UP    &kp END    &kp PG_UP                   &none     &none       &none     &none &none       &none       &none     &none
+          &kp LC(0)   &kp F12   &kp LEFT  &kp DOWN  &kp RIGHT  &kp PG_DN      &kp LS(DOT)     &none  &none       &none     &none &none       &none     &kp RET
+          &kp LSHFT   &kp LC(Z) &kp LC(X) &kp LC(C) &kp LC(V)  &none          &kp LS(COMMA)      &none     &none     &none   &none     &none        &kp RSHFT             &kp PG_UP 
           &kp LCTRL   &kp LGUI           &kp LALT          &none          &none  &rgb_ug RGB_TOG     &kp SPACE           &kp RALT  &kp RCTRL                &kp HOME  &kp PG_DN  &kp END
             >;
         };
