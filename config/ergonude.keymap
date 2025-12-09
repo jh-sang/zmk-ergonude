@@ -9,19 +9,17 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <
-                &bt BT_SEL -1   // USB HID 모드로 전환
-                &to 0           // 레이어 0번으로 영구 전환
+                &bt BT_SEL -1
+                &to 0
             >;
         };
-      
+
         to_mac: behavior-macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <
-                &bt BT_SEL 0     // BLE 슬롯 0으로 전환
-                &to 4            // 레이어 4로 영구 전환
-                // 여기에 RGB 명령도 추가 가능
-                // 예: &rgb_sld 0 0 255
+                &bt BT_SEL 0
+                &to 4
             >;
         };
 
@@ -31,7 +29,7 @@
 
             bindings = <
                 &to_mac
-                &bt BT_CLR     // BLE 프로파일 삭제
+                &bt BT_CLR
             >;
         };
 
@@ -39,14 +37,11 @@
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
 
-            // Caps Lock OFF → 첫 번째 binding 실행
-            // Caps Lock ON  → 두 번째 binding 실행
             bindings = <
-                &macro_rgb_caps_off   // Caps OFF일 때 실행
-                &macro_rgb_caps_on    // Caps ON일 때 실행
+                &macro_rgb_caps_off
+                &macro_rgb_caps_on
             >;
 
-            // ✅ 최신 ZMK에서 추가된 LED 조건
             mods = < CAPS >;
         };
 
@@ -55,7 +50,7 @@
             #binding-cells = <0>;
 
             bindings = <
-                &rgb_sld 255 0 0   // 예: 빨간색 (A 값)
+                &rgb_sld 255 0 0
             >;
         };
 
@@ -64,7 +59,7 @@
             #binding-cells = <0>;
 
             bindings = <
-                &rgb_sld 0 0 255   // 예: 파란색 (B 값)
+                &rgb_sld 0 0 255
             >;
         };
     };
