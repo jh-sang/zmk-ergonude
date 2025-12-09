@@ -9,8 +9,8 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings =  <
-                &out OUT_USB
-                &to 0
+                &macro_tap <&out OUT_USB>,
+                &macro_tap <&to 0>
             >;
         };
 
@@ -24,7 +24,7 @@
         };
     };
 
-    ergonude_map: keymap {
+    keymap {
         compatible = "zmk,keymap";
 
         0 {
