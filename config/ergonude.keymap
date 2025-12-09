@@ -4,9 +4,7 @@
 #include <dt-bindings/zmk/rgb.h>
 
 / {
-    behaviors {
 
-    };
 
     ergonude_map: keymap {
         compatible = "zmk,keymap";
