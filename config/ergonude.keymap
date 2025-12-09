@@ -4,39 +4,143 @@
 #include <dt-bindings/zmk/rgb.h>
 
 / {
-    keymap0: keymap {
+    behaviors {
+        to_win: behavior-macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <
+                //&bt BT_SEL -1
+                &to 0
+            >;
+        };
+
+        to_mac: behavior-macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <
+                //&bt BT_SEL 0
+                &to 4
+            >;
+        };
+
+        to_mac_and_clear: behavior-macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+
+            bindings = <
+                &to_mac
+                &bt BT_CLR
+            >;
+        };
+
+        caps_rgb_toggle: behavior-mod-morph {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+
+            bindings = <
+                &macro_rgb_caps_off
+                &macro_rgb_caps_on
+            >;
+
+            mods = < CAPS >;
+        };
+
+        macro_rgb_caps_on: behavior-macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+
+            bindings = <
+                &rgb_sld 255 0 0
+            >;
+        };
+
+        macro_rgb_caps_off: behavior-macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+
+            bindings = <
+                &rgb_sld 0 0 255
+            >;
+        };
+    };
+
+    ergonude_map: keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
-            display-name = "default";
+        0 {
+            display-name = "default_win";
             bindings = < 
 &kp ESC   &kp TILDE   &kp N1    &kp N2   &kp N3    &kp N4    &kp N5    &kp N6                 &kp N7    &kp N8   &kp N9     &kp N0    &kp MINUS    &kp EQUAL   &kp BSPC            &kp DEL
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
-          &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp ENTER
+          &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
-          &kp LCTRL   &kp LGUI           &kp LALT            &kp SPACE       &mo 1    &mo 2            &kp SPACE           &kp RALT  &kp RCTRL                &kp LEFT  &kp DOWN  &kp RIGHT
+          &kp LCTRL   &kp LGUI           &kp LALT            &ht SPACE 2   &mo 1    &ht to_mac 3        &kp SPACE           &kp RALT  &kp RCTRL                &kp LEFT  &kp DOWN  &kp RIGHT
             >; 
         };
 
-        fn_layer {
-            display-name = "fn";
+        1 {
+            display-name = "fn_win";
             bindings = <
+&kp K_POWER &none     &kp F1    &kp F2   &kp F3    &kp F4   &kp F5    &kp F6                  &kp F7    &kp F8   &kp F9     &kp F10   &kp F11      &kp F12     &kp BSPC               &bootloader
+     &kp LS(LA(TAB))  &kp LA(F4) &kp LC(F4) &kp LG(E) &kp LC(LS(R)) &kp LC(T)                 &kp 7     &kp 8    &kp 9      &kp MINUS &kp CARET    &none       &none      &none
+          &kp CAPS    &kp LC(A) &kp PSCR &kp DEL   &kp LA(SPACE) &kp C_HOME   &kp C_VOL_UP    &kp 4     &kp 5    &kp 6      &kp PLUS  &kp ASTERISK &none                  &kp RET
+          &kp LSHFT   &kp LC(Y) &none   &kp C_CALC &none    &kp LC(N)         &kp C_VOL_DN    &kp 1     &kp 2    &kp 3      &kp DOT   &kp FSLH     &kp RSHFT              &kp C_VOL_UP 
+          &kp LCTRL   &kp LGUI           &kp LALT           &kp SPACE     &none    &rgb_ug RGB_EFR      &kp 0               &kp EQUAL &none                    &kp C_PREV &kp C_VOL_DN &kp C_NEXT
+            >; 
+        };
+
+        2 {
+            display-name = "nav_win";
+            bindings = <
+&kp ESC   &kp LS(TILDE) &kp N6  &kp N7    &kp N8    &kp N9     &kp N0  &kp MINUS           &kp F7    &kp F8   &kp F9     &kp F10   &kp F11      &kp F12     &kp BSPC             &kp INS
+          &kp LC(TAB) &kp F11   &kp HOME  &kp UP    &kp END    &kp PG_UP                   &none     &mkp MB1 &mmv MOVE_UP &mkp MB2 &none       &none       &none     &none
+          &kp LC(0)   &kp F12   &kp LEFT  &kp DOWN  &kp RIGHT  &kp PG_DN      &kp BSPC     &none  &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &none       &none     &kp RET
+          &kp LSHFT   &kp LC(Z) &kp LC(X) &kp LC(C) &kp LC(V)  &none          &kp RET      &none     &none    &mkp MB3   &none     &none        &kp RSHFT             &kp PG_UP 
+          &kp LCTRL   &kp LGUI           &kp LALT          &none          &none  &rgb_ug RGB_TOG     &kp SPACE           &kp RALT  &kp RCTRL                &kp HOME  &kp PG_DN  &kp END
+            >;
+        };
+ 
+        3 {
+            display-name = "bt_rgb";
+            bindings = <
+&none          &none       &none    &none   &none    &none    &none   &none                      &none     &none    &none      &none     &none        &none       &none              &to_mac_and_clear
+               &none       &none    &none   &none    &none    &none                              &none     &none    &none      &none     &none        &none       &none     &none
+               &none       &none    &none   &none    &none    &none           &kp C_VOL_UP       &none     &none    &none      &none     &none        &none                 &none
+               &none       &none    &none   &none    &none    &none           &kp C_VOL_DN       &none     &none    &none      &none     &none        &none                 &kp C_BRIGHTNESS_INC 
+               &none       &none    &none   &none    &none    &none       &kp C_MUTE    &mo 3               &none               &none     &none           &rgb_ug RGB_BRD   &kp C_BRIGHTNESS_DEC  &rgb_ug RGB_BRI
+            >;
+        };
+
+        4 {
+            display-name = "default_mac";
+            bindings = < 
 &kp ESC   &kp TILDE   &kp N1    &kp N2   &kp N3    &kp N4    &kp N5    &kp N6                 &kp N7    &kp N8   &kp N9     &kp N0    &kp MINUS    &kp EQUAL   &kp BSPC            &kp DEL
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
-          &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp ENTER
+          &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
-          &kp LCTRL   &kp LGUI           &kp LALT            &kp SPACE       &mo 1    &rgb_ug RGB_EFR            &kp SPACE           &kp RALT  &kp RCTRL                &kp LEFT  &kp DOWN  &kp RIGHT
+          &kp LGUI   &kp LALT           &kp LGUI            &ht SPACE 6   &mo 5    &ht to_win 3        &kp SPACE           &kp RALT  &kp RCTRL                 &kp LEFT  &kp DOWN  &kp RIGHT
+            >; 
+        }; 
+
+        5 {
+            display-name = "fn_mac";
+            bindings = <
+&kp LS(LG(Q)) &none  &kp F1    &kp F2   &kp F3    &kp F4   &kp F5    &kp F6                      &kp F7    &kp F8   &kp F9     &kp F10   &kp F11      &kp F12     &kp BSPC               &bootloader
+     &kp LS(LG(TAB)) &kp LG(Q) &kp LG(W) &kp LA(LG(SPACE)) &kp LS(LG(R)) &kp LG(T)               &kp 7     &kp 8    &kp 9      &kp MINUS &kp CARET    &none       &none      &none
+          &kp CAPS   &kp LG(A) &kp LS(LG(N4)) &kp DEL &kp LA(SPACE) &kp LA(LC(G)) &kp LG(BSPC)   &kp 4     &kp 5    &kp 6      &kp PLUS  &kp ASTERISK &none                  &kp RET
+          &kp LSHFT  &kp LG(LS(Z)) &none &kp LA(LC(C)) &none  &kp LG(N)         &kp LS(LG(RET))  &kp 1     &kp 2    &kp 3      &kp DOT   &kp FSLH     &kp RSHFT              &kp C_VOL_UP 
+          &kp LGUI   &kp LALT           &kp LGUI           &kp SPACE        &none    &rgb_ug RGB_EFR      &kp 0            &kp EQUAL &none                        &kp C_PREV &kp C_VOL_DN &kp C_NEXT
             >; 
         };
 
-        tri_layer {
-            display-name = "tri";
+        6 {
+            display-name = "nav_mac";
             bindings = <
-&bootloader    &kp TILDE   &kp N1    &kp N2   &kp N3    &kp N4    &kp N5    &kp N6                    &kp N7    &kp N8   &kp N9     &kp N0    &kp MINUS    &kp EQUAL   &kp BSPC            &kp DEL
-               &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                               &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
-               &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC           &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp ENTER
-               &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET            &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
-               &kp LCTRL   &kp LGUI           &kp LALT            &kp SPACE        &rgb_ug RGB_TOG    &rgb_ug RGB_EFR                &kp SPACE           &kp RALT  &kp RCTRL                &kp LEFT  &kp DOWN  &kp RIGHT
+&kp ESC   &kp LS(TILDE) &kp N6  &kp N7    &kp N8    &kp N9     &kp N0  &kp MINUS           &kp F7    &kp F8   &kp F9     &kp F10   &kp F11      &kp F12     &kp BSPC             &kp INS
+          &kp LC(TAB) &kp F11   &kp HOME  &kp UP    &kp END    &kp PG_UP                   &none     &mkp MB1 &mmv MOVE_UP &mkp MB2 &none       &none       &none     &none
+          &kp LG(0)   &kp F12   &kp LEFT  &kp DOWN  &kp RIGHT  &kp PG_DN      &kp BSPC     &none  &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &none       &none     &kp RET
+          &kp LSHFT   &kp LG(Z) &kp LG(X) &kp LG(C) &kp LG(V)  &none          &kp RET      &none     &none    &mkp MB3   &none     &none        &kp RSHFT             &kp PG_UP 
+          &kp LGUI   &kp LALT           &kp LGUI          &none          &none  &rgb_ug RGB_TOG     &kp SPACE           &kp RALT  &kp RCTRL                &kp HOME  &kp PG_DN  &kp END
             >;
         };
     };
