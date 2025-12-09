@@ -27,9 +27,9 @@
             bindings = <
 &kp K_POWER &none     &kp F1    &kp F2   &kp F3    &kp F4   &kp F5    &kp F6                  &kp F7    &kp F8   &kp F9     &kp F10   &kp F11      &kp F12     &kp BSPC               &bootloader
      &kp LS(LA(TAB))  &kp LA(F4) &kp LC(F4) &kp LG(E) &kp LC(LS(R)) &kp LC(T)                 &kp 7     &kp 8    &kp 9      &kp MINUS &kp CARET    &none       &none      &none
-          &kp CAPS    &kp LC(A) &kp PSCR &kp DEL   &kp LA(SPACE) &kp C_HOME   &kp C_VOL_UP    &kp 4     &kp 5    &kp 6      &kp PLUS  &kp ASTERISK &none                  &kp RET
-          &kp LSHFT   &kp LC(Y) &none   &kp C_CALC &none    &kp LC(N)         &kp C_VOL_DN    &kp 1     &kp 2    &kp 3      &kp DOT   &kp FSLH     &kp RSHFT              &kp C_VOL_UP 
-          &kp LCTRL   &kp LGUI           &kp LALT           &kp SPACE     &none    &rgb_ug RGB_EFR      &kp 0               &kp EQUAL &none                    &kp C_PREV &kp C_VOL_DN &kp C_NEXT
+          &kp CAPS    &kp LC(A) &kp PSCR &kp DEL   &kp LA(SPACE) &kp C_HOME   &kp KC_VOLU    &kp 4     &kp 5    &kp 6      &kp PLUS  &kp ASTERISK &none                  &kp RET
+          &kp LSHFT   &kp LC(Y) &none   &kp C_CALC &none    &kp LC(N)         &kp KC_VOLD    &kp 1     &kp 2    &kp 3      &kp DOT   &kp FSLH     &kp RSHFT              &kp KC_VOLU 
+          &kp LCTRL   &kp LGUI           &kp LALT           &kp SPACE     &none    &rgb_ug RGB_EFR      &kp 0               &kp EQUAL &none                    &kp KC_MPRV &kp KC_VOLD &kp KC_MNXT
             >; 
         };
 
@@ -49,9 +49,9 @@
             bindings = <
 &none          &none       &none    &none   &none    &none    &none   &none                      &none     &none    &none      &none     &none        &none       &none              &bt BT_CLR
                &none       &none    &none   &none    &none    &none                              &none     &none    &none      &none     &none        &none       &none     &none
-               &none       &none    &none   &none    &none    &none           &kp C_VOL_UP       &none     &none    &none      &none     &none        &none                 &none
-               &none       &none    &none   &none    &none    &none           &kp C_VOL_DN       &none     &none    &none      &none     &none        &none                 &kp C_BRIGHTNESS_INC 
-               &none       &none    &none   &none    &none    &none       &kp C_MUTE     &none               &none               &none     &none           &rgb_ug RGB_BRD   &kp C_BRIGHTNESS_DEC  &rgb_ug RGB_BRI
+               &none       &none    &none   &none    &none    &none           &kp KC_VOLU       &none     &none    &none      &none     &none        &none                 &none
+               &none       &none    &none   &none    &none    &none           &kp KC_VOLD       &none     &none    &none      &none     &none        &none                 &kp C_BRIGHTNESS_INC 
+               &none       &none    &none   &none    &none    &none       &kp KC_MUTE     &none               &none               &none     &none           &rgb_ug RGB_BRD   &kp C_BRIGHTNESS_DEC  &rgb_ug RGB_BRI
             >;
         };
 
