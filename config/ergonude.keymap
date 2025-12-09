@@ -8,19 +8,17 @@
         to_win: behavior-macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings =  <
-                &macro_tap <&out OUT_USB>,
-                &macro_tap <&to 0>
-            >;
+            bindings = 
+                <&out OUT_USB>,
+                <&to 0>
         };
 
         to_mac: behavior-macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <
-                &out OUT_BLE
-                &to 4
-            >;
+            bindings = 
+                <&out OUT_BLE>,
+                <&to 4>
         };
     };
 
