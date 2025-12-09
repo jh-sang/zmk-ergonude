@@ -5,14 +5,14 @@
 
 / {
     macros {
-        to_win: behavior-macro {
+        to_win: to_win-macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = 
                 <&to 0>;
         };
 
-        to_mac: behavior-macro {
+        to_mac: to_mac-macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = 
