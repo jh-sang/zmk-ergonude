@@ -24,17 +24,27 @@
                 <&bt BT_SEL 0>,
                 <&rgb_ug RGB_COLOR_HSB(200,35,100)>,
                 <&to 4>;
+        };      
+    };
+
+    behaviors {
+        lt_3_mac: layer_tap_3_mac {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <0>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&to_mac>;
+            display-name = "Layer-Tap-3-mac";
         };
 
-        to_tv: to_tv-macro {
-            compatible = "zmk,behavior-macro";
+        lt_3_win: layer_tap_3_win {
+            compatible = "zmk,behavior-hold-tap";
             #binding-cells = <0>;
-            bindings = 
-                <&out OUT_BLE>,
-                <&bt BT_SEL 1>,
-                <&rgb_ug RGB_EFR>,
-                <&to 0>;
-        };        
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&to_win>;
+            display-name = "Layer-Tap-3-win";
+        };
     };
 
     keymap {
@@ -47,7 +57,7 @@
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
           &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
-          &kp LCTRL   &kp LGUI           &kp LALT            &lt 2 SPACE   &mo 1  &lt 3 &to_mac    &kp SPACE  &mt RALT LS(SPACE) &mt RCTRL LC(SPACE)      &kp LEFT  &kp DOWN  &kp RIGHT
+          &kp LCTRL   &kp LGUI           &kp LALT            &lt 2 SPACE   &mo 1  &lt_3_mac             &kp SPACE  &mt RALT LS(SPACE) &mt RCTRL LC(SPACE)      &kp LEFT  &kp DOWN  &kp RIGHT
             >; 
         };
 
@@ -91,7 +101,7 @@
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
           &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
-          &kp LGUI   &kp LALT           &kp LGUI            &lt 6 SPACE   &mo 5    &lt 3 &to_win        &kp SPACE  &mt RALT LS(SPACE) &mt RCTRL LA(RET)        &kp LEFT  &kp DOWN  &kp RIGHT
+          &kp LGUI   &kp LALT           &kp LGUI            &lt 6 SPACE   &mo 5    &lt_3_win            &kp SPACE  &mt RALT LS(SPACE) &mt RCTRL LA(RET)        &kp LEFT  &kp DOWN  &kp RIGHT
             >; 
         }; 
 
