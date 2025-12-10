@@ -33,7 +33,7 @@
             #binding-cells = <0>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
-            bindings = <&mo>, <&to_mac>;
+            bindings = <&mo 3>, <&to_mac>;
             display-name = "Layer-Tap-3-mac";
         };
 
@@ -42,7 +42,7 @@
             #binding-cells = <0>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
-            bindings = <&mo>, <&to_win>;
+            bindings = <&mo 3>, <&to_win>;
             display-name = "Layer-Tap-3-win";
         };
     };
