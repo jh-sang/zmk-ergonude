@@ -22,7 +22,7 @@
             bindings = 
                 <&out OUT_BLE>,
                 <&bt BT_SEL 0>,
-                <&rgb_ug RGB_COLOR_HSB(200,70,100)>,
+                <&rgb_ug RGB_COLOR_HSB(200,35,100)>,
                 <&to 4>;
         };
 
@@ -76,7 +76,7 @@
         3 {
             display-name = "bt_rgb";
             bindings = <
-&none       &none    &none    &nonec    &nonev   &none  &none   &none                    &none     &none    &none      &none     &none      &none       &none          &bt BT_CLR_ALL
+&none       &none    &none    &nonec    &none    &none  &none   &none                    &none     &none    &none      &none     &none      &none       &none          &bt BT_CLR_ALL
             &none    &none    &none     &none    &none  &none                            &none     &none    &none      &none     &none      &none       &none     &none
             &none    &none    &none     &none    &none  &none         &kp C_VOL_UP       &none     &none    &none      &none     &none      &none                 &none
             &none    &none    &none     &none    &none  &none         &kp C_VOL_DN       &none     &none    &none      &none     &none      &none                 &kp C_BRI_UP 
