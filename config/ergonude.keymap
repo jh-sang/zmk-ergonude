@@ -66,7 +66,7 @@
             bindings = <
 &kp K_POWER &none     &kp F1    &kp F2   &kp F3    &kp F4   &kp F5    &kp F6                  &kp F7    &kp F8   &kp F9     &kp F10   &kp F11      &kp F12  &kp BSPC              &bootloader
      &kp LS(LA(TAB))  &kp LA(F4) &kp LC(F4) &kp LG(E) &kp LC(LS(R)) &kp LC(T)                 &kp N7    &kp N8   &kp N9     &kp MINUS &kp CARET    &none    &none    &none
-          &kp CAPS    &kp LC(A) &kp PSCRN &kp DEL   &kp LA(SPACE) &kp C_AC_HOME &kp C_VOL_UP   &kp N4    &kp N5   &kp N6     &kp PLUS  &kp ASTERISK &none             &kp RET
+          &none    &kp LC(A) &kp PSCRN &kp DEL   &kp LA(SPACE) &kp C_AC_HOME &kp C_VOL_UP   &kp N4    &kp N5   &kp N6     &kp PLUS  &kp ASTERISK &none             &kp RET
           &kp LSHFT   &kp LC(Y) &none &kp C_AL_CALC &none   &kp LC(N)          &kp C_VOL_DN   &kp N1    &kp N2   &kp N3     &kp DOT   &kp FSLH     &kp RSHFT         &kp C_VOL_UP 
           &kp LCTRL   &kp LGUI           &kp LALT           &kp SPACE     &none    &rgb_ug RGB_EFR      &kp N0         &kp EQUAL &none                    &kp C_PREV &kp C_VOL_DN &kp C_NEXT
             >; 
@@ -110,7 +110,7 @@
             bindings = <
 &kp LS(LG(Q)) &none  &kp F1    &kp F2   &kp F3    &kp F4   &kp F5    &kp F6                      &kp F7   &kp F8   &kp F9     &kp F10   &kp F11      &kp F12     &kp BSPC               &bootloader
      &kp LS(LG(TAB)) &kp LG(Q) &kp LG(W) &kp LA(LG(SPACE)) &kp LS(LG(R)) &kp LG(T)               &kp N7   &kp N8   &kp N9     &kp MINUS &kp CARET    &none       &none      &none
-          &kp CAPS   &kp LG(A) &kp LS(LG(N4)) &kp DEL &kp LA(SPACE) &kp LA(LC(G)) &kp LG(BSPC)   &kp N4   &kp N5   &kp N6     &kp PLUS  &kp ASTERISK &none                  &kp RET
+          &none   &kp LG(A) &kp LS(LG(N4)) &kp DEL &kp LA(SPACE) &kp LA(LC(G)) &kp LG(BSPC)   &kp N4   &kp N5   &kp N6     &kp PLUS  &kp ASTERISK &none                  &kp RET
           &kp LSHFT  &kp LG(LS(Z)) &none &kp LA(LC(C)) &none  &kp LG(N)         &kp LS(LG(RET))  &kp N1   &kp N2   &kp N3     &kp DOT   &kp FSLH     &kp RSHFT              &kp C_VOL_UP 
           &kp LGUI   &kp LALT           &kp LGUI           &kp SPACE        &none    &rgb_ug RGB_EFR      &kp N0            &kp EQUAL &none                      &kp C_PREV &kp C_VOL_DN &kp C_NEXT
             >; 
