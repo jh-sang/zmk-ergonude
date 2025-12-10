@@ -1,6 +1,6 @@
 if SHIELD_ERGONUDE
 
 config ZMK_KEYBOARD_NAME
-    default "ergonude"
+    default "Ergonude"
       
 endif
