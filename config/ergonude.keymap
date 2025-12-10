@@ -65,22 +65,22 @@
         2 {
             display-name = "nav_win";
             bindings = <
-&kp ESC   &kp LS(TILDE) &kp N6  &kp N7    &kp N8    &kp N9     &kp N0  &kp MINUS            &kp F7    &kp F8   &kp F9       &kp F10  &kp F11     &kp F12     &kp BSPC             &kp INS
-          &kp LC(TAB) &kp F11   &kp HOME  &kp UP    &kp END    &kp PG_UP                    &none     &mkp MB1 &mmv MOVE_UP &mkp MB2 &none       &none       &none     &none
-          &kp LC(0)   &kp F12   &kp LEFT  &kp DOWN  &kp RIGHT  &kp PG_DN      &kp LS(DOT)   &none  &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &none       &none     &kp RET
-          &kp LSHFT   &kp LC(Z) &kp LC(X) &kp LC(C) &kp LC(V)  &none          &kp LS(COMMA) &none     &none    &mkp MB3     &none    &none       &kp RSHFT             &kp PG_UP 
-          &kp LCTRL   &kp LGUI           &kp LALT          &none          &none  &rgb_ug RGB_TOG     &kp SPACE           &kp RALT  &kp RCTRL                 &kp HOME  &kp PG_DN  &kp END
+&kp ESC   &kp LS(TILDE) &kp N6  &kp N7    &kp N8    &kp N9     &kp N0  &kp MINUS            &kp F7    &kp F8   &kp F9       &kp F10        &kp F11    &kp F12   &kp BSPC           &kp INS
+          &kp LC(TAB) &kp F11   &kp HOME  &kp UP    &kp END    &kp PG_UP                    &none     &mkp MB1 &mmv MOVE_UP &mkp MB2       &none      &none     &none   &none
+          &kp LC(0)   &kp F12   &kp LEFT  &kp DOWN  &kp RIGHT  &kp PG_DN      &kp LS(DOT)   &none  &mmv MOVE_LEFT &mkp MB3 &mmv MOVE_RIGHT &none      &none             &kp RET
+          &kp LSHFT   &kp LC(Z) &kp LC(X) &kp LC(C) &kp LC(V)  &none          &kp LS(COMMA) &none     &none    &mmv MOVE_DOWN     &none    &none      &kp RSHFT         &kp PG_UP 
+          &kp LCTRL   &kp LGUI           &kp LALT          &none          &none  &rgb_ug RGB_TOG     &kp SPACE         &kp RALT  &kp RCTRL                    &kp HOME  &kp PG_DN  &kp END
             >;
         };
  
         3 {
             display-name = "bt_rgb";
             bindings = <
-&none          &none    &to_win  &to_mac &to_tv   &none    &none   &none                      &none     &none    &none      &none     &none      &none       &none              &bt BT_CLR_ALL
-               &none    &none    &none   &none    &none    &none                              &none     &none    &none      &none     &none      &none       &none     &none
-               &none    &none    &none   &none    &none    &none           &kp C_VOL_UP       &none     &none    &none      &none     &none      &none                 &none
-               &none    &none    &none   &none    &none    &none           &kp C_VOL_DN       &none     &none    &none      &none     &none      &none                 &kp C_BRI_UP 
-               &none    &none    &none   &none    &none    &none       &kp C_MUTE     &none             &none               &none     &none            &rgb_ug RGB_BRD &kp C_BRI_DN &rgb_ug RGB_BRI
+&none       &none    &to_win   &to_mac      &to_tv       &none  &none   &none                    &none     &none    &none      &none     &none      &none       &none          &bt BT_CLR_ALL
+            &none &out OUT_USB &out OUT_BLE &out OUT_BLE &none  &none                            &none     &none    &none      &none     &none      &none       &none     &none
+            &none    &to 0     &to 4        &to 0        &none  &none         &kp C_VOL_UP       &none     &none    &none      &none     &none      &none                 &none
+            &none    &none     &bt BT_SEL 0 &bt BT_SEL 1 &none  &none         &kp C_VOL_DN       &none     &none    &none      &none     &none      &none                 &kp C_BRI_UP 
+            &none    &none               &none             &none           &kp C_MUTE     &none            &none               &none     &none            &rgb_ug RGB_BRD &kp C_BRI_DN &rgb_ug RGB_BRI
             >;
         };
 
