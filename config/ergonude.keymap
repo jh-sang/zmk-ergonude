@@ -12,6 +12,7 @@
             #binding-cells = <0>;
             bindings =
                 <&out OUT_USB>,
+                <&rgb_ug RGB_SLD 27 73 100>,
                 <&to 0>;
         };
 
@@ -21,6 +22,7 @@
             bindings = 
                 <&out OUT_BLE>,
                 <&bt BT_SEL 0>,
+                <&rgb_ug RGB_SLD 218 69 100>,
                 <&to 4>;
         };
 
@@ -30,6 +32,7 @@
             bindings = 
                 <&out OUT_BLE>,
                 <&bt BT_SEL 1>,
+                <&rgb_ug RGB_EFR>,
                 <&to 0>;
         };        
     };
