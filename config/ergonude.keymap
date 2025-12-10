@@ -47,7 +47,7 @@
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
           &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
-          &kp LCTRL   &kp LGUI           &kp LALT            &lt 2 SPACE   &mo 1    &mo 3       &kp SPACE  &mt RALT LS(SPACE) &mt RCTRL LC(SPACE)      &kp LEFT  &kp DOWN  &kp RIGHT
+          &kp LCTRL   &kp LGUI           &kp LALT            &lt 2 SPACE   &mo 1    &to_mac       &kp SPACE  &mt RALT LS(SPACE) &mt RCTRL LC(SPACE)      &kp LEFT  &kp DOWN  &kp RIGHT
             >; 
         };
 
@@ -91,7 +91,7 @@
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
           &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
-          &kp LGUI   &kp LALT           &kp LGUI            &lt 6 SPACE   &mo 5    &mo 3        &kp SPACE  &mt RALT LS(SPACE) &mt RCTRL LA(RET)        &kp LEFT  &kp DOWN  &kp RIGHT
+          &kp LGUI   &kp LALT           &kp LGUI            &lt 6 SPACE   &mo 5    &to_win        &kp SPACE  &mt RALT LS(SPACE) &mt RCTRL LA(RET)        &kp LEFT  &kp DOWN  &kp RIGHT
             >; 
         }; 
 
@@ -111,8 +111,8 @@
             bindings = <
 &kp ESC   &kp LS(TILDE) &kp N6  &kp N7    &kp N8    &kp N9     &kp N0  &kp MINUS           &kp F7    &kp F8   &kp F9     &kp F10   &kp F11      &kp F12     &kp BSPC             &kp INS
           &kp LC(TAB) &kp F11   &kp HOME  &kp UP    &kp END    &kp PG_UP                   &none     &mkp MB1 &mmv MOVE_UP &mkp MB2 &none       &none       &none     &none
-          &kp LG(0)   &kp F12   &kp LEFT  &kp DOWN  &kp RIGHT  &kp PG_DN    &kp LS(DOT)    &none  &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &none       &none     &kp RET
-          &kp LSHFT   &kp LG(Z) &kp LG(X) &kp LG(C) &kp LG(V)  &none        &kp LS(COMMA)  &none     &none    &mkp MB3     &none    &none       &kp RSHFT             &kp PG_UP 
+          &kp LG(0)   &kp F12   &kp LEFT  &kp DOWN  &kp RIGHT  &kp PG_DN    &kp LS(DOT)    &none  &mmv MOVE_LEFT &mkp MB3 &mmv MOVE_RIGHT &none       &none     &kp RET
+          &kp LSHFT   &kp LG(Z) &kp LG(X) &kp LG(C) &kp LG(V)  &none        &kp LS(COMMA)  &none     &none    &mmv MOVE_DOWN     &none    &none       &kp RSHFT             &kp PG_UP 
           &kp LGUI   &kp LALT           &kp LGUI          &none          &none  &rgb_ug RGB_TOG     &kp SPACE           &kp RALT  &kp RCTRL                 &kp HOME  &kp PG_DN  &kp END
             >;
         };
