@@ -12,7 +12,7 @@
             #binding-cells = <0>;
             bindings =
                 <&out OUT_USB>,
-                <&rgb_ug RGB_COLOR_HSB(18,100,100)>,
+                <&rgb_ug RGB_COLOR_HSB(17,100,100)>,
                 <&to 0>;
         };
 
