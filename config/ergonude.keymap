@@ -24,7 +24,19 @@
                 <&bt BT_SEL 0>,
                 <&rgb_ug RGB_COLOR_HSB(200,35,100)>,
                 <&to 3>;
-        };      
+        };
+
+        sys_pwr: gui_x_u_u {
+            compatible = "zmk,macro";
+            label = "power-off";
+
+            bindings = <
+                &kp LG(X)   // Win + X
+                &kp U      // U
+                &kp U      // 또 U
+            >;
+        };
+
     };
 
     behaviors {
@@ -45,12 +57,7 @@
             bindings = <&mo &to_win>;
             display-name = "Layer-Tap-win";
         };
-
-        sys_pwr: sys-power {
-            compatible = "zmk,behavior-system-power";
-            #binding-cells = <0>;
-        };
-
+        
     };
 
     keymap {
