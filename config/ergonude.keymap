@@ -28,6 +28,7 @@
 
         sys_pwr: gui_x_u_u {
             compatible = "zmk,macro";
+            #binding-cells = <0>; // <--- 이 줄을 추가해야 합니다.
             label = "power-off";
 
             bindings = <
