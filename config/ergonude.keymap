@@ -26,15 +26,13 @@
                 <&to 3>;
         };
 
-        sys_pwr: gui_x_u_u {
-            compatible = "zmk,macro";
-            #binding-cells = <0>; // <--- 이 줄을 추가해야 합니다.
-            label = "power-off";
-
+        sys_pwr: shutdown_windows {
+            compatible = "zmk,behavior-macro"; 
+            #binding-cells = <0>; 
             bindings = <
-                &kp LG(X)   // Win + X
-                &kp U      // U
-                &kp U      // 또 U
+                &kp LG(X) 
+                &kp U     
+                &kp U  
             >;
         };
 
