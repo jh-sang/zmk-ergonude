@@ -8,8 +8,8 @@
 / {
     macros {
         to_win: to_win-macro {
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
             bindings =
                 <&out OUT_USB>,
                 <&rgb_ug RGB_COLOR_HSB(15,100,100)>,
@@ -28,6 +28,15 @@
     };
 
     behaviors {
+        lt_win: layer_tap_win {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&mo 3>,<&to_win>;
+            display-name = "Layer-Tap-win";
+        };
+
         lt_mac: layer_tap_mac {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -35,15 +44,6 @@
             tapping-term-ms = <200>;
             bindings = <&mo &to_mac>;
             display-name = "Layer-Tap-mac";
-        };
-
-        lt_win: layer_tap_win {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "hold-preferred";
-            tapping-term-ms = <200>;
-            bindings = <&mo &to_win>;
-            display-name = "Layer-Tap-win";
         };
     };
 
@@ -53,8 +53,8 @@
         0 {
             display-name = "default_win";
             bindings = < 
-&kp ESC   &kp TILDE   &kp N1    &kp N2   &kp N3    &kp N4    &kp N5    &kp N6                 &kp N7    &kp N8   &kp N9     &kp N0    &kp MINUS    &kp EQUAL   &kp BSPC            &kp C_POWER
-          &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp K_POWER
+&kp ESC   &kp TILDE   &kp N1    &kp N2   &kp N3    &kp N4    &kp N5    &kp N6                 &kp N7    &kp N8   &kp N9     &kp N0    &kp MINUS    &kp EQUAL   &kp BSPC            &kp DEL
+          &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
           &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
           &kp LCTRL   &kp LGUI           &kp LALT            &lt 2 SPACE   &mo 1  &lt_mac 3 0            &kp SPACE  &mt RALT LS(SPACE) &mt RCTRL LC(SPACE)      &kp LEFT  &kp DOWN  &kp RIGHT
