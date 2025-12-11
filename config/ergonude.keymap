@@ -30,9 +30,7 @@
             compatible = "zmk,behavior-macro"; 
             #binding-cells = <0>; 
             bindings = <
-                &kp LG(X) 
-                &kp U     
-                &kp U  
+                LC(LA(LS(F13)))
             >;
         };
 
