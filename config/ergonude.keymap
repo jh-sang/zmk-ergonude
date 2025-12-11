@@ -84,7 +84,7 @@
         };
  
         3 {
-            display-name = "bt_rgb";
+            display-name = "bt-rgb_win";
             bindings = <
 &none       &none    &none    &none     &none    &none  &none   &none                    &none     &none    &none      &none     &none      &none       &none          &bt BT_CLR_ALL
             &none    &none    &none     &none    &none  &none                            &none     &none    &none      &none     &none      &none       &none     &none
@@ -101,7 +101,7 @@
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
           &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
-          &kp LGUI   &kp LALT           &kp LGUI            &lt 6 SPACE   &mo 5    &lt_win 7 A          &kp SPACE  &mt RALT LS(SPACE) &mt RCTRL LA(RET)        &kp LEFT  &kp DOWN  &kp RIGHT
+          &kp LGUI   &kp LALT           &kp LGUI            &lt 6 SPACE   &mo 5    &mo 3          &to_win  &mt RALT LS(SPACE) &mt RCTRL LA(RET)        &kp LEFT  &kp DOWN  &kp RIGHT
             >; 
         }; 
 
@@ -128,7 +128,7 @@
         };
 
         7 {
-            display-name = "bt_rgb2";
+            display-name = "bt-rgb_mac";
             bindings = <
 &none       &none    &none    &none     &none    &none  &none   &none                    &none     &none    &none      &none     &none      &none       &none          &bt BT_CLR_ALL
             &none    &none    &none     &none    &none  &none                            &none     &none    &none      &none     &none      &none       &none     &none
