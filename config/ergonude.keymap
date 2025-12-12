@@ -55,7 +55,7 @@
         0 {
             display-name = "default_win";
             bindings = < 
-&kp ESC   &kp TILDE   &kp N1    &kp N2   &kp N3    &kp N4    &kp N5    &kp N6                 &kp N7    &kp N8   &kp N9     &kp N0    &kp MINUS    &kp EQUAL   &kp BSPC            &kp DEL
+&kp ESC   &kp GRAVE   &kp N1    &kp N2   &kp N3    &kp N4    &kp N5    &kp N6                 &kp N7    &kp N8   &kp N9     &kp N0    &kp MINUS    &kp EQUAL   &kp BSPC            &kp DEL
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
           &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
@@ -77,7 +77,7 @@
         2 {
             display-name = "nav_win";
             bindings = <
-&kp ESC   &kp LS(TILDE) &kp N6  &kp N7    &kp N8    &kp N9     &kp N0  &kp MINUS            &kp F7    &kp F8   &kp F9       &kp F10        &kp F11    &kp F12   &kp BSPC           &kp INS
+&kp ESC   &kp TILDE   &kp N6  &kp N7    &kp N8    &kp N9     &kp N0  &kp MINUS            &kp F7    &kp F8   &kp F9       &kp F10        &kp F11    &kp F12   &kp BSPC           &kp INS
           &kp LC(TAB) &kp F11   &kp HOME  &kp UP    &kp END    &kp PG_UP                    &none     &mkp MB1 &mmv MOVE_UP &mkp MB2       &none      &none     &none   &none
           &kp LC(N0)   &kp F12   &kp LEFT  &kp DOWN  &kp RIGHT  &kp PG_DN      &kp LS(DOT)   &none  &mmv MOVE_LEFT &mkp MB3 &mmv MOVE_RIGHT &none      &none             &kp RET
           &kp LSHFT   &kp LC(Z) &kp LC(X) &kp LC(C) &kp LC(V)  &none          &kp LS(COMMA) &none     &none    &mmv MOVE_DOWN     &none    &none      &kp RSHFT         &kp PG_UP 
@@ -88,7 +88,7 @@
         3 {
             display-name = "default_mac";
             bindings = < 
-&kp ESC   &kp TILDE   &kp N1    &kp N2   &kp N3    &kp N4    &kp N5    &kp N6                 &kp N7    &kp N8   &kp N9     &kp N0    &kp MINUS    &kp EQUAL   &kp BSPC            &kp DEL
+&kp ESC   &kp GRAVE   &kp N1    &kp N2   &kp N3    &kp N4    &kp N5    &kp N6                 &kp N7    &kp N8   &kp N9     &kp N0    &kp MINUS    &kp EQUAL   &kp BSPC            &kp DEL
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
           &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
@@ -110,7 +110,7 @@
         5 {
             display-name = "nav_mac";
             bindings = <
-&kp ESC   &kp LS(TILDE) &kp N6  &kp N7    &kp N8    &kp N9     &kp N0  &kp MINUS           &kp F7    &kp F8   &kp F9     &kp F10   &kp F11      &kp F12     &kp BSPC             &kp INS
+&kp ESC   &kp TILDE   &kp N6  &kp N7    &kp N8    &kp N9     &kp N0  &kp MINUS           &kp F7    &kp F8   &kp F9     &kp F10   &kp F11      &kp F12     &kp BSPC             &kp INS
           &kp LC(TAB) &kp F11   &kp HOME  &kp UP    &kp END    &kp PG_UP                   &none     &mkp MB1 &mmv MOVE_UP &mkp MB2 &none       &none       &none     &none
           &kp LG(0)   &kp F12   &kp LEFT  &kp DOWN  &kp RIGHT  &kp PG_DN    &kp LS(DOT)    &none  &mmv MOVE_LEFT &mkp MB3 &mmv MOVE_RIGHT &none       &none     &kp RET
           &kp LSHFT   &kp LG(Z) &kp LG(X) &kp LG(C) &kp LG(V)  &none        &kp LS(COMMA)  &none     &none    &mmv MOVE_DOWN     &none    &none       &kp RSHFT             &kp PG_UP 
