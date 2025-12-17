@@ -17,7 +17,7 @@ static int behavior_rgb_ug_solid_breathing_binding_pressed(struct zmk_behavior_b
     // 내부에서 상태를 기억합니다. 
     // 키보드를 처음 켰을 때와 싱크가 안 맞으면 한 번 더 누르면 됩니다!
     static bool is_breathing = false;
-    return zmk_rgb_underglow_calc_effect(1); /*
+    return zmk_rgb_underglow_cycle_effect(1); /*
     if (is_breathing) {
         is_breathing = false;
         return zmk_rgb_underglow_select_effect(EFFECT_SOLID);
@@ -38,16 +38,17 @@ static const struct zmk_behavior_api behavior_rgb_ug_solid_breathing_api = {
     .on_key_param_released = behavior_rgb_ug_solid_breathing_binding_released,
 };
 
-#define RGB_UG_INST(n) \
-    BEHAVIOR_DT_INST_DEFINE(n, \
-                            behavior_rgb_ug_solid_breathing_init, \
-                            NULL, \
-                            NULL, \
-                            NULL, \
-                            POST_KERNEL, \
-                            CONFIG_ZMK_BEHAVIOR_INIT_PRIORITY, \
-                            &behavior_rgb_ug_solid_breathing_driver_api);
+#define RGB_UG_INST_BY_ID(node_id) \
+    BEHAVIOR_DT_DEFINE(node_id, \
+                       behavior_rgb_ug_solid_breathing_init, \
+                       NULL, \
+                       NULL, \
+                       NULL, \
+                       POST_KERNEL, \
+                       CONFIG_ZMK_BEHAVIOR_INIT_PRIORITY, \
+                       &behavior_rgb_ug_solid_breathing_driver_api);
 
-DT_INST_FOREACH_STATUS_OKAY(RGB_UG_INST)
+// 키맵에서 compatible이 일치하는 모든 노드에 대해 이 동작을 적용합니다.
+DT_FOREACH_STATUS_OKAY(zmk_behavior_rgb_ug_solid_breathing, RGB_UG_INST_BY_ID)
 
 DT_INST_FOREACH_STATUS_OKAY(RGB_UG_SOLID_BREATHING_INST)
