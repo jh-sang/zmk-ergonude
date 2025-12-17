@@ -2,3 +2,4 @@ build:
   settings:
     board_root: .
   cmake: modules
+  dts_root: modules
