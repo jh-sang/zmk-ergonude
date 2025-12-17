@@ -17,7 +17,7 @@ static int behavior_rgb_ug_solid_breathing_binding_pressed(struct zmk_behavior_b
     // 내부에서 상태를 기억합니다. 
     // 키보드를 처음 켰을 때와 싱크가 안 맞으면 한 번 더 누르면 됩니다!
     static bool is_breathing = false;
-    
+    return zmk_rgb_underglow_cycle_effects(); /*
     if (is_breathing) {
         is_breathing = false;
         return zmk_rgb_underglow_select_effect(EFFECT_SOLID);
@@ -25,6 +25,7 @@ static int behavior_rgb_ug_solid_breathing_binding_pressed(struct zmk_behavior_b
         is_breathing = true;
         return zmk_rgb_underglow_select_effect(EFFECT_BREATHING);
     }
+    */
 }
 
 static int behavior_rgb_ug_solid_breathing_binding_released(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
