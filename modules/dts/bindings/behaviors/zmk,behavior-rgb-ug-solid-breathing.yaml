@@ -1,0 +1,10 @@
+description: RGB Underglow Solid/Breathing Toggle Behavior
+
+compatible: "zmk,behavior-rgb-ug-solid-breathing"
+
+include: [zero-cells.yaml]
+
+properties:
+  label:
+    type: string
+    required: true
