@@ -10,6 +10,10 @@ struct zmk_behavior_api {
     int (*on_key_param_released)(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event);
 };
 
+LOG_MODULE_REGISTER(behavior_rgb_ug_solid_breathing, CONFIG_ZMK_LOG_LEVEL);
+
+#define DT_DRV_COMPAT zmk_behavior_rgb_ug_solid_breathing
+
 /* 효과 번호 (ZMK 표준: 0은 Solid, 1은 Breathe) */
 #define EFFECT_SOLID 0
 #define EFFECT_BREATHING 1
