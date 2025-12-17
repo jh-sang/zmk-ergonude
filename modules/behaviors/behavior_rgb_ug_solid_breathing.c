@@ -1,40 +1,44 @@
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
-#include <drivers/behavior.h>
 #include <zmk/behavior.h>
 #include <zmk/rgb_underglow.h>
-#include <zmk/endpoints.h>
 
-/* 최신 ZMK Underglow 효과 인덱스 (보통 순서상 SOLID=0, BREATH=1 인 경우가 많으나 환경에 따라 다를 수 있음) */
+/* [빌드 에러 방지] ZMK 최신 API 구조체 직접 선언 */
+struct zmk_behavior_api {
+    int (*on_key_param_pressed)(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event);
+    int (*on_key_param_released)(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event);
+};
+
+/* 효과 번호 (ZMK 표준: 0은 Solid, 1은 Breathe) */
 #define EFFECT_SOLID 0
 #define EFFECT_BREATHING 1
 
 static int behavior_rgb_ug_solid_breathing_binding_pressed(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
-    uint8_t current_effect;
+    // 내부에서 상태를 기억합니다. 
+    // 키보드를 처음 켰을 때와 싱크가 안 맞으면 한 번 더 누르면 됩니다!
+    static bool is_breathing = false;
     
-    // 1. 현재 Underglow의 효과 번호를 가져옵니다.
-    // 최신 ZMK에서는 zmk_rgb_underglow_get_state()를 통해 상태를 확인할 수 있습니다.
-    int ret = zmk_rgb_underglow_get_state(&current_effect);
-    if (ret != 0) return ret;
-
-    // 2. 토글 로직: 현재가 Solid면 Breathing으로, 아니면 Solid로 변경
-    if (current_effect == EFFECT_SOLID) {
-        return zmk_rgb_underglow_select_effect(EFFECT_BREATHING);
-    } else {
+    if (is_breathing) {
+        is_breathing = false;
         return zmk_rgb_underglow_select_effect(EFFECT_SOLID);
+    } else {
+        is_breathing = true;
+        return zmk_rgb_underglow_select_effect(EFFECT_BREATHING);
     }
 }
 
 static int behavior_rgb_ug_solid_breathing_binding_released(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
-    return 0;
+    return 0; // 뗐을 때는 아무 동작 안 함
 }
 
+/* [핵심] 최신 ZMK 멤버 이름인 on_key_param_... 사용 */
 static const struct zmk_behavior_api behavior_rgb_ug_solid_breathing_api = {
     .on_key_param_pressed = behavior_rgb_ug_solid_breathing_binding_pressed,
     .on_key_param_released = behavior_rgb_ug_solid_breathing_binding_released,
 };
 
-// 장치 초기화 매크로 (기존 소스 하단부 유지)
+#define DT_DRV_COMPAT zmk_behavior_rgb_ug_solid_breathing
+
 #define RGB_UG_SOLID_BREATHING_INST(n) \
     DEVICE_DT_INST_DEFINE(n, NULL, NULL, \
                           NULL, NULL, \
