@@ -15,6 +15,9 @@
         zmk,studio-rpc-uart = &uart0;
 		zmk,underglow = &led_strip;
 		zmk,battery = &vbatt;
+
+		zephyr,console = &cdc_acm_uart;
+        zephyr,shell-uart = &cdc_acm_uart;
     };
 	vbatt: vbatt {
 		compatible = "zmk,battery-voltage-divider";
@@ -81,4 +84,10 @@
 
 &adc {
     status = "okay";
+};
+
+&zephyr_udc0 {
+    cdc_acm_uart: cdc_acm_uart {
+        compatible = "zephyr,cdc-acm-uart";
+    };
 };
