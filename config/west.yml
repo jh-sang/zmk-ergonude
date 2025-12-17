@@ -12,6 +12,5 @@ manifest:
       import: app/west.yml
     - name: ergonude-module
       path: modules
-      type: find
   self:
     path: config
