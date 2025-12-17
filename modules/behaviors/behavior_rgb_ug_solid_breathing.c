@@ -32,9 +32,9 @@ static int behavior_rgb_ug_solid_breathing_binding_released(struct zmk_behavior_
     return 0; // 뗐을 때는 아무 동작 안 함
 }
 
-static const struct zmk_behavior_api behavior_rgb_ug_solid_breathing_api = {
-    .on_key_param_pressed = behavior_rgb_ug_solid_breathing_binding_pressed,
-    .on_key_param_released = behavior_rgb_ug_solid_breathing_binding_released,
+static const struct behavior_driver_api behavior_rgb_ug_solid_breathing_driver_api = {
+    .binding_pressed = behavior_rgb_ug_solid_breathing_binding_pressed,
+    .binding_released = behavior_rgb_ug_solid_breathing_binding_released,
 };
 
 // 인스턴스 생성
