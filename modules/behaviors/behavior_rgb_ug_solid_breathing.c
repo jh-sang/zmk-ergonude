@@ -19,9 +19,7 @@ static int behavior_rgb_ug_solid_breathing_init(const struct device *dev) {
 }
 
 static int behavior_rgb_ug_solid_breathing_binding_pressed(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
-    LOG_ERR("HB_RGB KEY PRESSED!");
-
-    return zmk_rgb_underglow_select_effect(1); /*
+    //LOG_ERR("HB_RGB KEY PRESSED!");
     static bool is_breathing = false;
     if (is_breathing) {
         is_breathing = false;
@@ -30,7 +28,6 @@ static int behavior_rgb_ug_solid_breathing_binding_pressed(struct zmk_behavior_b
         is_breathing = true;
         return zmk_rgb_underglow_select_effect(1);
     }
-    */
 }
 
 static int behavior_rgb_ug_solid_breathing_binding_released(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
