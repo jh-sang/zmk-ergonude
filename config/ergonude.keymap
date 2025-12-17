@@ -31,9 +31,9 @@
             #binding-cells = <0>;
             wait-ms = <0>;
             tap-ms = <0>;
-            bindings
-                = <&kp CAPS>   // 1) Caps Lock 키를 누름
-                , <&hb_rgb>;   // 2) 우리가 만든 조명 토글 실행
+            bindings = 
+                <&hb_rgb>,
+                <&kp CAPS>;
         };
     };
 
