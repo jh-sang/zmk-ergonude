@@ -1,15 +1,26 @@
-# Ergonude custom module CMake configuration
+# ==========================================================
+# ZMK Custom Module CMake 설정
+# ==========================================================
 
-# src/ 폴더 안의 모든 .c 파일을 재귀적으로 스캔
-file(GLOB_RECURSE sources src/*.c)
+# 1. 모든 소스 파일 재귀적 스캔 및 ZMK 타겟에 추가
+# CMAKE_CURRENT_SOURCE_DIR 모듈 디렉토리 아래의 모든 *.c 파일을 찾습니다.
+# (예: behaviors/*.c, app/src/*.c 등)
+file(GLOB_RECURSE SOURCES
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.c"
+)
 
-# Zephyr 라이브러리 선언
-zephyr_library()
+# 찾은 모든 C 파일을 ZMK 앱의 메인 타겟에 추가합니다.
+target_sources(zmk PRIVATE
+    ${SOURCES}
+)
 
-# include 디렉토리가 있다면 자동 포함
-if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/include)
-  zephyr_include_directories(include)
-endif()
-
-# 스캔된 모든 C 파일을 라이브러리에 추가
-zephyr_library_sources(${sources})
+# 2. 모든 디렉토리를 인클루드 경로에 추가 (재귀적으로)
+# Behavior 파일 내에서 필요한 헤더 파일 (예: #include <zmk/behavior.h>)을 찾을 수 있도록 합니다.
+file(GLOB_RECURSE INCLUDE_DIRS
+    LIST_DIRECTORIES true
+    "${CMAKE_CURRENT_SOURCE_DIR}/*"
+)
+target_include_directories(zmk PRIVATE
+    ${INCLUDE_DIRS}
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
