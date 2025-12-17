@@ -43,14 +43,14 @@ static const struct behavior_driver_api behavior_rgb_ug_solid_breathing_driver_a
 };
 
 // 인스턴스 생성
-#define RGB_UG_INST(n) \
-    BEHAVIOR_DT_INST_DEFINE(n, \
-                            behavior_rgb_ug_solid_breathing_init, \
-                            NULL, \
-                            NULL, \
-                            NULL, \
-                            POST_KERNEL, \
-                            CONFIG_ZMK_BEHAVIOR_INIT_PRIORITY, \
+#define RGB_UG_INST(n)                                              \
+    BEHAVIOR_DT_INST_DEFINE(n,                                      \
+                            behavior_rgb_ug_solid_breathing_init,   \
+                            NULL,                                   \
+                            NULL,                                   \
+                            NULL,                                   \
+                            POST_KERNEL,                            \
+                            CONFIG_KERNEL_INIT_PRIORITY_DEFAULT,      \
                             &behavior_rgb_ug_solid_breathing_driver_api);
 
 DT_INST_FOREACH_STATUS_OKAY(RGB_UG_INST)
