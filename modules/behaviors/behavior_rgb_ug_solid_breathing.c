@@ -1,6 +1,8 @@
+#include <zephyr/device.h>
 #include <zephyr/kernel.h>
 #include <zmk/behavior.h>
-
+#include <zmk/behaviors.h>
+#include <zmk/rgb_underglow.h>
 
 struct zmk_rgb_underglow_state {
     uint8_t current_effect;
