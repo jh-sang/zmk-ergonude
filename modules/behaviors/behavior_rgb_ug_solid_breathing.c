@@ -1,7 +1,7 @@
 #include <zephyr/device.h>
 #include <zephyr/kernel.h>
 #include <zmk/behavior.h>
-#include <zmk/behaviors.h>
+#include <drivers/behavior.h>
 #include <zmk/rgb_underglow.h>
 
 struct zmk_rgb_underglow_state {
@@ -27,9 +27,8 @@ static int behavior_rgb_ug_solid_breathing_init(const struct device *dev) {
     return 0;
 }
 
-
-static int behavior_rgb_ug_solid_breathing_press(struct zmk_behavior_binding *binding,
-                                               struct zmk_behavior_binding_event event) {
+static int behavior_rgb_ug_solid_breathing_binding_pressed(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
+    const struct device *dev = zmk_behaviors_get_binding(binding->behavior_dev);
 
     if (state.current_effect == SOLID_MODE_INDEX) {
         zmk_rgb_underglow_select_effect(BREATHING_MODE_INDEX);
@@ -37,19 +36,16 @@ static int behavior_rgb_ug_solid_breathing_press(struct zmk_behavior_binding *bi
         zmk_rgb_underglow_select_effect(SOLID_MODE_INDEX);
     }
 
-    return ZMK_BEHAVIOR_OPAQUE;
+    return 0;
 }
 
-
-static int behavior_rgb_ug_solid_breathing_release(struct zmk_behavior_binding *binding,
-                                                 struct zmk_behavior_binding_event event) {
-    return ZMK_BEHAVIOR_OPAQUE;
+static int behavior_rgb_ug_solid_breathing_binding_released(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
+    return 0;
 }
 
-// Behavior API 정의
 static const struct zmk_behavior_api behavior_rgb_ug_solid_breathing_api = {
-    .press = behavior_rgb_ug_solid_breathing_press,
-    .release = behavior_rgb_ug_solid_breathing_release,
+    .on_key_param_pressed = behavior_rgb_ug_solid_breathing_binding_pressed,
+    .on_key_param_released = behavior_rgb_ug_solid_breathing_binding_released,
 };
 
 // Behavior 디바이스 정의
