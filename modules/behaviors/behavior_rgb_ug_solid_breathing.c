@@ -37,12 +37,16 @@ static const struct zmk_behavior_api behavior_rgb_ug_solid_breathing_api = {
     .on_key_param_released = behavior_rgb_ug_solid_breathing_binding_released,
 };
 
-#define DT_DRV_COMPAT zmk_behavior_rgb_ug_solid_breathing
+#define RGB_UG_INST(n) \
+    BEHAVIOR_DT_INST_DEFINE(n, \
+                            behavior_rgb_ug_solid_breathing_init, \
+                            NULL, \
+                            NULL, \
+                            NULL, \
+                            POST_KERNEL, \
+                            CONFIG_ZMK_BEHAVIOR_INIT_PRIORITY, \
+                            &behavior_rgb_ug_solid_breathing_driver_api);
 
-#define RGB_UG_SOLID_BREATHING_INST(n) \
-    DEVICE_DT_INST_DEFINE(n, NULL, NULL, \
-                          NULL, NULL, \
-                          APPLICATION, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, \
-                          &behavior_rgb_ug_solid_breathing_api);
+DT_INST_FOREACH_STATUS_OKAY(RGB_UG_INST)
 
 DT_INST_FOREACH_STATUS_OKAY(RGB_UG_SOLID_BREATHING_INST)
