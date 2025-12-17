@@ -59,6 +59,7 @@
         hb_rgb: hb_rgb_solid_breathing {
             compatible = "zmk,behavior-rgb-ug-solid-breathing";
             #binding-cells = <0>;
+            status = "okay";
         };
         
     };
