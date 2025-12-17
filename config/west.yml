@@ -6,14 +6,14 @@ manifest:
       url-base: https://github.com/zmkfirmware
     # Additional modules containing boards/shields/custom code can be listed here as well
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
-    - name: jh-sang
-      url-base: https://github.com/jh-sang
+    - name: zmk-ergonude
+      url-base: https://github.com/jh-sang/zmk-ergonude
   projects:
     - name: zmk
       remote: zmkfirmware
       import: app/west.yml
     - name: ergonude-module
-      remote: jh-sang
+      remote: zmk-ergonude
       revision: main
       path: ergonude-module      
   self:
