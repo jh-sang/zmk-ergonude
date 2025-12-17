@@ -4,12 +4,6 @@
 #include <zmk/behavior.h>
 #include <zmk/rgb_underglow.h>
 
-/* [빌드 에러 방지] ZMK 최신 API 구조체 직접 선언 */
-struct zmk_behavior_api {
-    int (*on_key_param_pressed)(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event);
-    int (*on_key_param_released)(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event);
-};
-
 LOG_MODULE_REGISTER(behavior_rgb_ug_solid_breathing, CONFIG_ZMK_LOG_LEVEL);
 
 #define DT_DRV_COMPAT zmk_behavior_rgb_ug_solid_breathing
@@ -19,22 +13,17 @@ static int behavior_rgb_ug_solid_breathing_init(const struct device *dev) {
     return 0;
 }
 
-/* 효과 번호 (ZMK 표준: 0은 Solid, 1은 Breathe) */
-#define EFFECT_SOLID 0
-#define EFFECT_BREATHING 1
-
 static int behavior_rgb_ug_solid_breathing_binding_pressed(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
     LOG_ERR("HB_RGB KEY PRESSED!");
-    // 내부에서 상태를 기억합니다. 
-    // 키보드를 처음 켰을 때와 싱크가 안 맞으면 한 번 더 누르면 됩니다!
-    static bool is_breathing = false;
+
     return zmk_rgb_underglow_select_effect(1); /*
+    static bool is_breathing = false;
     if (is_breathing) {
         is_breathing = false;
-        return zmk_rgb_underglow_select_effect(EFFECT_SOLID);
+        return zmk_rgb_underglow_select_effect(0);
     } else {
         is_breathing = true;
-        return zmk_rgb_underglow_select_effect(EFFECT_BREATHING);
+        return zmk_rgb_underglow_select_effect(1);
     }
     */
 }
@@ -61,4 +50,3 @@ static const struct zmk_behavior_api behavior_rgb_ug_solid_breathing_api = {
 
 DT_INST_FOREACH_STATUS_OKAY(RGB_UG_INST)
 
-DT_INST_FOREACH_STATUS_OKAY(RGB_UG_INST)
