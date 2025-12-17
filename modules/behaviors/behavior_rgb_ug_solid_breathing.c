@@ -14,6 +14,11 @@ LOG_MODULE_REGISTER(behavior_rgb_ug_solid_breathing, CONFIG_ZMK_LOG_LEVEL);
 
 #define DT_DRV_COMPAT zmk_behavior_rgb_ug_solid_breathing
 
+// 초기화 함수
+static int behavior_rgb_ug_solid_breathing_init(const struct device *dev) {
+    return 0;
+}
+
 /* 효과 번호 (ZMK 표준: 0은 Solid, 1은 Breathe) */
 #define EFFECT_SOLID 0
 #define EFFECT_BREATHING 1
@@ -53,5 +58,7 @@ static const struct zmk_behavior_api behavior_rgb_ug_solid_breathing_api = {
                             POST_KERNEL, \
                             CONFIG_ZMK_BEHAVIOR_INIT_PRIORITY, \
                             &behavior_rgb_ug_solid_breathing_driver_api);
+
+DT_INST_FOREACH_STATUS_OKAY(RGB_UG_INST)
 
 DT_INST_FOREACH_STATUS_OKAY(RGB_UG_INST)
