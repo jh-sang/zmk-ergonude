@@ -10,5 +10,9 @@ manifest:
     - name: zmk
       remote: zmkfirmware
       import: app/west.yml
+    - name: ergonude-module
+      remote: jh-sang
+      revision: main
+      path: ergonude-module      
   self:
     path: config
