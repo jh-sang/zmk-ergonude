@@ -3,11 +3,11 @@
 
 
 struct zmk_rgb_underglow_state {
-    u8_t current_effect;
+    uint8_t current_effect;
 };
 
 extern struct zmk_rgb_underglow_state state;
-extern void zmk_rgb_underglow_select_effect(u8_t effect);
+extern void zmk_rgb_underglow_select_effect(uint8_t effect);
 
 
 #define DT_DRV_COMPAT zmk_behavior_rgb_ug_solid_breathing
@@ -17,8 +17,8 @@ struct behavior_rgb_ug_solid_breathing_config {};
 struct behavior_rgb_ug_solid_breathing_data {};
 
 // ZMK Underglow Effect 인덱스
-const u8_t SOLID_MODE_INDEX = 0; 
-const u8_t BREATHING_MODE_INDEX = 1; 
+const uint8_t SOLID_MODE_INDEX = 0; 
+const uint8_t BREATHING_MODE_INDEX = 1; 
 
 // behavior_rgb_ug_solid_breathing_init 함수
 static int behavior_rgb_ug_solid_breathing_init(const struct device *dev) {
