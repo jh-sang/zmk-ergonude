@@ -1,42 +1,28 @@
-#include <zephyr/device.h>
 #include <zephyr/kernel.h>
-#include <zmk/behavior.h>
+#include <zephyr/device.h>
 #include <drivers/behavior.h>
+#include <zmk/behavior.h>
 #include <zmk/rgb_underglow.h>
+#include <zmk/endpoints.h>
 
-struct zmk_rgb_underglow_state {
-    uint8_t current_effect;
-};
-
-extern struct zmk_rgb_underglow_state state;
-extern void zmk_rgb_underglow_select_effect(uint8_t effect);
-
-
-#define DT_DRV_COMPAT zmk_behavior_rgb_ug_solid_breathing
-
-// Behavior 정의 구조체
-struct behavior_rgb_ug_solid_breathing_config {};
-struct behavior_rgb_ug_solid_breathing_data {};
-
-// ZMK Underglow Effect 인덱스
-const uint8_t SOLID_MODE_INDEX = 0; 
-const uint8_t BREATHING_MODE_INDEX = 1; 
-
-// behavior_rgb_ug_solid_breathing_init 함수
-static int behavior_rgb_ug_solid_breathing_init(const struct device *dev) {
-    return 0;
-}
+/* 최신 ZMK Underglow 효과 인덱스 (보통 순서상 SOLID=0, BREATH=1 인 경우가 많으나 환경에 따라 다를 수 있음) */
+#define EFFECT_SOLID 0
+#define EFFECT_BREATHING 1
 
 static int behavior_rgb_ug_solid_breathing_binding_pressed(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
-    const struct device *dev = zmk_behaviors_get_binding(binding->behavior_dev);
+    uint8_t current_effect;
+    
+    // 1. 현재 Underglow의 효과 번호를 가져옵니다.
+    // 최신 ZMK에서는 zmk_rgb_underglow_get_state()를 통해 상태를 확인할 수 있습니다.
+    int ret = zmk_rgb_underglow_get_state(&current_effect);
+    if (ret != 0) return ret;
 
-    if (state.current_effect == SOLID_MODE_INDEX) {
-        zmk_rgb_underglow_select_effect(BREATHING_MODE_INDEX);
+    // 2. 토글 로직: 현재가 Solid면 Breathing으로, 아니면 Solid로 변경
+    if (current_effect == EFFECT_SOLID) {
+        return zmk_rgb_underglow_select_effect(EFFECT_BREATHING);
     } else {
-        zmk_rgb_underglow_select_effect(SOLID_MODE_INDEX);
+        return zmk_rgb_underglow_select_effect(EFFECT_SOLID);
     }
-
-    return 0;
 }
 
 static int behavior_rgb_ug_solid_breathing_binding_released(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
@@ -48,11 +34,11 @@ static const struct zmk_behavior_api behavior_rgb_ug_solid_breathing_api = {
     .on_key_param_released = behavior_rgb_ug_solid_breathing_binding_released,
 };
 
-// Behavior 디바이스 정의
-ZMK_BEHAVIOR_DT_DEFINE(behavior_rgb_ug_solid_breathing, behavior_rgb_ug_solid_breathing_init,
-                       NULL, behavior_rgb_ug_solid_breathing_data,
-                       behavior_rgb_ug_solid_breathing_config, POST_KERNEL,
-                       CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, &behavior_rgb_ug_solid_breathing_api);
+// 장치 초기화 매크로 (기존 소스 하단부 유지)
+#define RGB_UG_SOLID_BREATHING_INST(n) \
+    DEVICE_DT_INST_DEFINE(n, NULL, NULL, \
+                          NULL, NULL, \
+                          APPLICATION, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, \
+                          &behavior_rgb_ug_solid_breathing_api);
 
-// Behavior DT 호환성 정의
-#define ZMK_BEHAVIOR_RGB_UG_SOLID_BREATHING_COMPAT zmk_behavior_rgb_ug_solid_breathing
+DT_INST_FOREACH_STATUS_OKAY(RGB_UG_SOLID_BREATHING_INST)
