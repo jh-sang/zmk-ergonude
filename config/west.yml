@@ -12,5 +12,6 @@ manifest:
       import: app/west.yml
     - name: zmk-ergonude
       path: .
+      url: ..
   self:
     path: config
