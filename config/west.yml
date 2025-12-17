@@ -10,7 +10,5 @@ manifest:
     - name: zmk
       remote: zmkfirmware
       import: app/west.yml
-    - name: ergonude-module
-      path: modules
   self:
     path: config
