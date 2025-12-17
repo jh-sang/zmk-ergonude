@@ -38,17 +38,16 @@ static const struct zmk_behavior_api behavior_rgb_ug_solid_breathing_api = {
     .on_key_param_released = behavior_rgb_ug_solid_breathing_binding_released,
 };
 
-#define RGB_UG_INST_BY_ID(node_id) \
-    BEHAVIOR_DT_DEFINE(node_id, \
-                       behavior_rgb_ug_solid_breathing_init, \
-                       NULL, \
-                       NULL, \
-                       NULL, \
-                       POST_KERNEL, \
-                       CONFIG_ZMK_BEHAVIOR_INIT_PRIORITY, \
-                       &behavior_rgb_ug_solid_breathing_driver_api);
+/* ZMK에서 가장 권장하는 표준 인스턴스 생성 방식입니다. */
+#define RGB_UG_INST(n) \
+    BEHAVIOR_DT_INST_DEFINE(n, \
+                            behavior_rgb_ug_solid_breathing_init, \
+                            NULL, \
+                            NULL, \
+                            NULL, \
+                            POST_KERNEL, \
+                            CONFIG_ZMK_BEHAVIOR_INIT_PRIORITY, \
+                            &behavior_rgb_ug_solid_breathing_driver_api);
 
-// 키맵에서 compatible이 일치하는 모든 노드에 대해 이 동작을 적용합니다.
-DT_FOREACH_STATUS_OKAY(zmk_behavior_rgb_ug_solid_breathing, RGB_UG_INST_BY_ID)
-
-DT_INST_FOREACH_STATUS_OKAY(RGB_UG_SOLID_BREATHING_INST)
+/* dts에 선언된 모든 해당 compatible 노드에 대해 위 매크로를 실행합니다. */
+DT_INST_FOREACH_STATUS_OKAY(RGB_UG_INST)
