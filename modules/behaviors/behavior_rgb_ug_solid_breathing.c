@@ -1,8 +1,13 @@
+
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
+#include <drivers/behavior.h>
 #include <zephyr/logging/log.h>
-#include <zmk/behavior.h>
+
+#include <dt-bindings/zmk/rgb.h>
 #include <zmk/rgb_underglow.h>
+#include <zmk/behavior.h>
+#include <zmk/keymap.h>
 
 LOG_MODULE_REGISTER(behavior_rgb_ug_solid_breathing, CONFIG_ZMK_LOG_LEVEL);
 
