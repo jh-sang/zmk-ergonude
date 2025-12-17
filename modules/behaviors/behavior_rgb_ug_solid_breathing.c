@@ -1,5 +1,6 @@
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
+#include <zephyr/logging/log.h>
 #include <zmk/behavior.h>
 #include <zmk/rgb_underglow.h>
 
@@ -14,6 +15,7 @@ struct zmk_behavior_api {
 #define EFFECT_BREATHING 1
 
 static int behavior_rgb_ug_solid_breathing_binding_pressed(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
+    LOG_ERR("HB_RGB KEY PRESSED!");
     // 내부에서 상태를 기억합니다. 
     // 키보드를 처음 켰을 때와 싱크가 안 맞으면 한 번 더 누르면 됩니다!
     static bool is_breathing = false;
