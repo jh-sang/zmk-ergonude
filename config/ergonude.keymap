@@ -84,7 +84,7 @@
 &kp LC(LA(LS(SLCK))) &none &kp F1 &kp F2   &kp F3    &kp F4   &kp F5   &kp F6                 &kp F7    &kp F8   &kp F9     &kp F10   &kp F11      &kp F12  &kp BSPC              &bootloader
      &kp LS(LA(TAB))  &kp LA(F4) &kp LC(F4) &kp LG(E) &kp LC(LS(R)) &kp LC(T)                 &kp N7    &kp N8   &kp N9     &kp MINUS &kp CARET    &none    &none    &none
           &none       &kp LC(A) &kp PSCRN &kp DEL  &kp LA(SPACE) &kp C_AC_HOME &kp C_VOL_UP   &kp N4    &kp N5   &kp N6     &kp PLUS  &kp ASTERISK &none             &kp RET
-          &kp LSHFT   &kp LC(Y) &none &kp C_AL_CALC &none   &kp LC(N)          &kp C_VOL_DN   &kp N1    &kp N2   &kp N3     &kp DOT   &kp FSLH     &kp RSHFT         &kp C_VOL_UP 
+          &kp LSHFT   &kp LC(Y) &none &kp C_AL_CALC &kp LC(H) &kp LC(N)          &kp C_VOL_DN   &kp N1    &kp N2   &kp N3     &kp DOT   &kp FSLH     &kp RSHFT         &kp C_VOL_UP 
           &kp LCTRL   &kp LGUI           &kp LALT           &kp SPACE     &none    &rgb_ug RGB_EFR      &kp N0         &kp EQUAL &none                    &kp C_PREV &kp C_VOL_DN &kp C_NEXT
             >; 
         };
@@ -117,7 +117,7 @@
 &kp LC(LG(Q)) &none  &kp F1    &kp F2   &kp F3    &kp F4   &kp F5    &kp F6                      &kp F7   &kp F8   &kp F9     &kp F10   &kp F11      &kp F12     &kp BSPC               &bootloader
      &kp LS(LG(TAB)) &kp LG(Q) &kp LG(W) &kp LA(LG(SPACE)) &kp LS(LG(R)) &kp LG(T)               &kp N7   &kp N8   &kp N9     &kp MINUS &kp CARET    &none       &none      &none
           &none   &kp LG(A) &kp LS(LG(N4)) &kp DEL &kp LA(SPACE) &kp LA(LC(G)) &kp LG(BSPC)      &kp N4   &kp N5   &kp N6     &kp PLUS  &kp ASTERISK &none                  &kp RET
-          &kp LSHFT  &kp LG(LS(Z)) &none &kp LA(LC(C)) &none  &kp LG(N)         &kp LS(LG(RET))  &kp N1   &kp N2   &kp N3     &kp DOT   &kp FSLH     &kp RSHFT              &kp C_VOL_UP 
+          &kp LSHFT  &kp LG(LS(Z)) &none &kp LA(LC(C)) &kp LG(H) &kp LG(N)      &kp LS(LG(RET))  &kp N1   &kp N2   &kp N3     &kp DOT   &kp FSLH     &kp RSHFT              &kp C_VOL_UP 
           &kp LGUI   &kp LALT           &kp LGUI           &kp SPACE        &none    &rgb_ug RGB_EFR      &kp N0            &kp EQUAL &none                      &kp C_PREV &kp C_VOL_DN &kp C_NEXT
             >; 
         };
@@ -125,11 +125,11 @@
         5 {
             display-name = "nav_mac";
             bindings = <
-&kp ESC   &kp TILDE   &kp N6  &kp N7    &kp N8    &kp N9     &kp N0  &kp MINUS           &kp F7    &kp F8   &kp F9     &kp F10   &kp F11      &kp F12     &kp BSPC             &kp INS
-          &kp LC(TAB) &kp F11   &kp HOME  &kp UP    &kp END    &kp PG_UP                   &none     &mkp MB1 &mmv MOVE_UP &mkp MB2 &none       &none       &none     &none
-          &kp LG(N0)   &kp F12   &kp LEFT  &kp DOWN  &kp RIGHT  &kp PG_DN    &kp LS(DOT)    &none  &mmv MOVE_LEFT &mkp MB3 &mmv MOVE_RIGHT &none       &none     &kp RET
-          &kp LSHFT   &kp LG(Z) &kp LG(X) &kp LG(C) &kp LG(V)  &none        &kp LS(COMMA)  &none     &mkp MB1 &mmv MOVE_DOWN &mkp MB2   &none       &kp RSHFT             &kp PG_UP 
-          &kp LGUI   &kp LALT           &kp LGUI          &none          &none  &rgb_ug RGB_TOG     &kp SPACE           &kp RALT  &kp RCTRL                 &kp HOME  &kp PG_DN  &kp END
+&kp ESC   &kp TILDE   &kp N6   &kp N7    &kp N8    &kp N9     &kp N0  &kp MINUS           &kp F7    &kp F8   &kp F9     &kp F10   &kp F11      &kp F12     &kp BSPC            &kp INS
+          &kp LC(TAB) &kp F11  &kp HOME  &kp UP    &kp END    &kp PG_UP                   &none     &mkp MB1 &mmv MOVE_UP &mkp MB2 &none       &none       &none     &none
+          &kp LG(N0) &kp F12   &kp LEFT  &kp DOWN  &kp RIGHT  &kp PG_DN    &kp LS(DOT)    &none  &mmv MOVE_LEFT &mkp MB3 &mmv MOVE_RIGHT &none       &none           &kp RET
+          &kp LSHFT  &kp LG(Z) &kp LG(X) &kp LG(C) &kp LG(V)  &none        &kp LS(COMMA)  &none     &mkp MB1 &mmv MOVE_DOWN &mkp MB2   &none       &kp RSHFT         &kp PG_UP 
+          &kp LGUI   &kp LALT           &kp LGUI          &none          &none  &rgb_ug RGB_TOG     &kp SPACE           &kp RALT  &kp RCTRL                &kp HOME  &kp PG_DN  &kp END
             >;
         };
 
