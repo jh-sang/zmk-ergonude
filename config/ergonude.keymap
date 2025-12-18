@@ -32,7 +32,7 @@
             tap-ms = <50>;
             bindings = 
                 <&hb_rgb>,
-                <&kp CAPS>;
+                <&macro_tap &kp CAPS>;
         };
     };
 
