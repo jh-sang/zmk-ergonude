@@ -7,15 +7,6 @@
 
 / {
     macros {
-        to_win: to_win-macro {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings =
-                <&out OUT_USB>,
-                <&rgb_ug RGB_COLOR_HSB(15,100,100)>,
-                <&to 0>;
-        };
-
         to_mac: to_mac-macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -26,14 +17,23 @@
                 <&to 3>;
         };
 
+        to_win: to_win-macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&out OUT_USB>,
+                <&rgb_ug RGB_COLOR_HSB(15,100,100)>,
+                <&to 0>;
+        };
+
         caps_rgb: caps_rgb {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = 
                 <&hb_rgb>,
-                <&macro_press &kp CAPS>, // 맥에서 실제 caps 눌린 시간을 체크해서 매크로  &kp 안먹음
-                <&macro_pause_for_release>,
-                <&macro_release &kp CAPS>;
+                <&kp CAPS>; 
+                // 맥에서 실제 caps 최소 눌린 시간을 체크해서 매크로  &kp 안먹음 아래 명령 맥에 입력
+                // hidutil property --set '{"CapsLockDelayOverride":0}'
         };
     };
 
