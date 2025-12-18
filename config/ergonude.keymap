@@ -137,7 +137,7 @@
             display-name = "bt-rgb";
             bindings = <
 &sys_reset  &none    &to_win  &to_mac   &none    &none  &none   &none                    &none     &none    &none      &none     &none      &none       &none          &bt BT_CLR_ALL
-            &none    &none    &none     &none    &none  &none                            &none     &none    &none      &none     &none      &none       &none     &none
+       &out OUT_AUTO &none    &none     &none    &none  &none                            &none     &none    &none      &none     &none      &none       &none     &none
             &none    &none    &none     &none    &none  &none         &kp C_VOL_UP       &none     &none    &none      &none     &none      &none                 &none
             &none    &none    &none     &none    &none  &none         &kp C_VOL_DN       &none     &none    &none      &none     &none      &none                 &kp C_BRI_UP 
             &none    &none              &none      &none           &kp C_MUTE     &none            &none               &none     &none                      &none &kp C_BRI_DN &none
