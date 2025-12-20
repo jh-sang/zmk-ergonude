@@ -64,6 +64,17 @@
         
     };
 
+    combos {
+        compatible = "zmk,combos";
+        
+        combo_shift_space {
+            timeout-ms = <199>;
+            key-positions = <44 61>;
+            bindings = <&kp LS(SPACE)>;
+            layers = <0 3>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
