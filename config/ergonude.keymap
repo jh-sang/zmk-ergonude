@@ -68,7 +68,7 @@
         compatible = "zmk,combos";
         
         combo_shift_space {
-            timeout-ms = <2000>;
+            timeout-ms = <220>;
             key-positions = <44 61>;
             bindings = <&kp LS(SPACE)>;
             layers = <0 3>;
