@@ -140,7 +140,7 @@
           &kp LC(TAB) &kp F11   &kp HOME  &kp UP    &kp END    &kp PG_UP                   &none     &mkp MB1 &mmv MOVE_UP &mkp MB2 &none       &none       &none     &none
           &kp LG(N0)  &kp F12   &kp LEFT  &kp DOWN  &kp RIGHT  &kp PG_DN    &kp LS(DOT)    &none  &mmv MOVE_LEFT &mkp MB3 &mmv MOVE_RIGHT &none       &none           &kp RET
         &kp LS(SPACE) &kp LG(Z) &kp LG(X) &kp LG(C) &kp LG(V)  &none        &kp LS(COMMA)  &none     &mkp MB1 &mmv MOVE_DOWN &mkp MB2   &none       &kp RSHFT         &kp PG_UP 
-          &kp LGUI   &kp LALT           &kp LGUI          &none          &none  &rgb_ug RGB_TOG     &kp SPACE           &kp RALT  &kp RCTRL                &kp HOME  &kp PG_DN  &kp END
+          &kp LGUI    &kp LCTRL          &kp LGUI          &none          &none  &rgb_ug RGB_TOG     &kp SPACE           &kp RALT  &kp RCTRL                &kp HOME  &kp PG_DN  &kp END
             >;
         };
 
