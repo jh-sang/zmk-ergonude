@@ -6,6 +6,11 @@
 #include <dt-bindings/zmk/outputs.h>
 
 / {
+    &lt {
+        tapping-term-ms = <140>;
+        retro-tap;
+    };
+
     macros {
         to_mac: to_mac-macro {
             compatible = "zmk,behavior-macro";
@@ -68,7 +73,7 @@
         compatible = "zmk,combos";
         
         combo_shift_space {
-            timeout-ms = <200>;
+            timeout-ms = <140>;
             key-positions = <44 61>;
             bindings = <&kp LS(SPACE)>;
             layers = <0 3>;
