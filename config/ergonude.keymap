@@ -5,12 +5,12 @@
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/outputs.h>
 
-/ {
-    &lt {
-        tapping-term-ms = <140>;
-        retro-tap;
-    };
+&lt {
+    tapping-term-ms = <140>;
+    retro-tap;
+};
 
+/ {
     macros {
         to_mac: to_mac-macro {
             compatible = "zmk,behavior-macro";
