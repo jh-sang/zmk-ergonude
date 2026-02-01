@@ -56,6 +56,15 @@
             display-name = "Layer-Tap-win";
         };
 
+        lti: layer_tap_space {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-unless-interrupted";
+            tapping-term-ms = <200>;   
+            quick-tap-ms = <150>;              // 연타 시 해당키 입력 보장
+            bindings = <&mo>, <&kp>;
+        };
+
         hb_rgb: hb_rgb_solid_breathing {
             compatible = "zmk,behavior-rgb-ug-solid-breathing";
             #binding-cells = <0>;
@@ -74,7 +83,7 @@
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
           &caps_rgb   &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
-          &kp LCTRL   &kp LGUI           &kp LALT            &lt 2 SPACE   &mo 1  &lt_mac 6 0            &kp SPACE  &mt RALT LS(SPACE) &mt RCTRL LC(SPACE)      &kp LEFT  &kp DOWN  &kp RIGHT
+          &kp LCTRL   &kp LGUI           &kp LALT            &lti 2 SPACE  &mo 1  &lt_mac 6 0            &kp SPACE  &mt RALT LS(SPACE) &mt RCTRL LC(SPACE)      &kp LEFT  &kp DOWN  &kp RIGHT
             >; 
         };
 
@@ -107,7 +116,7 @@
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
           &caps_rgb   &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
-          &kp LGUI   &kp LALT           &kp LGUI            &lt 5 SPACE   &mo 4    &lt_win 6 0          &kp SPACE  &mt RALT LS(SPACE) &mt RCTRL LA(RET)        &kp LEFT  &kp DOWN  &kp RIGHT
+          &kp LGUI   &kp LALT           &kp LGUI            &lti 5 SPACE  &mo 4    &lt_win 6 0          &kp SPACE  &mt RALT LS(SPACE) &mt RCTRL LA(RET)        &kp LEFT  &kp DOWN  &kp RIGHT
             >; 
         }; 
 
