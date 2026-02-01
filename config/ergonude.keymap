@@ -42,7 +42,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <200>;
+            tapping-term-ms = <150>;
             bindings = <&mo &to_mac>;
             display-name = "Layer-Tap-mac";
         };
@@ -51,7 +51,7 @@
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <200>;
+            tapping-term-ms = <150>;
             bindings = <&mo &to_win>;
             display-name = "Layer-Tap-win";
         };
@@ -68,7 +68,7 @@
         compatible = "zmk,combos";
         
         combo_shift_space {
-            timeout-ms = <220>;
+            timeout-ms = <150>;
             key-positions = <44 61>;
             bindings = <&kp LS(SPACE)>;
             layers = <0 3>;
