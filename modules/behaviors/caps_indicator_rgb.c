@@ -3,6 +3,9 @@
 #include <zmk/events/hid_indicators_changed.h>
 #include <zmk/rgb_underglow.h>
 
+// 이 레포는 Zephyr 모듈이라 이 파일이 settings_reset 등 다른 쉴드 빌드에도 전역 컴파일.
+// RGB/indicator가 꺼진 빌드에서는 참조 심볼이 없어 링크가 깨지므로 반드시 가드로 비워둬야 한다.
+#if IS_ENABLED(CONFIG_ZMK_RGB_UNDERGLOW) && IS_ENABLED(CONFIG_ZMK_HID_INDICATORS)
 
 // HID LED usage 순서: NumLock=bit0, CapsLock=bit1, ScrollLock=bit2
 #define HID_INDICATOR_CAPS_LOCK BIT(1)
@@ -66,3 +69,4 @@ static int caps_indicator_rgb_listener(const zmk_event_t *eh) {
 ZMK_LISTENER(caps_indicator_rgb, caps_indicator_rgb_listener);
 ZMK_SUBSCRIPTION(caps_indicator_rgb, zmk_hid_indicators_changed);
 
+#endif // CONFIG_ZMK_RGB_UNDERGLOW && CONFIG_ZMK_HID_INDICATORS
