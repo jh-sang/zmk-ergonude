@@ -2,7 +2,7 @@
 zephyr_library()
 
 # 소스 파일 추가
-zephyr_library_sources(behaviors/behavior_rgb_ug_solid_breathing.c)
+zephyr_library_sources(behaviors/caps_indicator_rgb.c)
 
 # ZMK 및 Zephyr 헤더 파일 경로 연결
 zephyr_library_include_directories(${ZEPHYR_BASE}/include)
