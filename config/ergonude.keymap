@@ -30,16 +30,6 @@
                 <&rgb_ug RGB_COLOR_HSB(15,100,100)>,
                 <&to 0>;
         };
-
-        caps_rgb: caps_rgb {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = 
-                <&hb_rgb>,
-                <&kp CAPS>; 
-                // 맥에서 실제 caps 최소 눌린 시간을 체크해서 매크로  &kp 안먹음 아래 명령 맥에 입력
-                // hidutil property --set '{"CapsLockDelayOverride":0}'
-        };
     };
 
     behaviors {
@@ -60,13 +50,6 @@
             bindings = <&mo &to_win>;
             display-name = "Layer-Tap-win";
         };
-
-        hb_rgb: hb_rgb_solid_breathing {
-            compatible = "zmk,behavior-rgb-ug-solid-breathing";
-            #binding-cells = <0>;
-            status = "okay";
-        };
-        
     };
 
     combos {
@@ -88,7 +71,7 @@
             bindings = < 
 &kp ESC   &kp GRAVE   &kp N1    &kp N2   &kp N3    &kp N4    &kp N5    &kp N6                 &kp N7    &kp N8   &kp N9     &kp N0    &kp MINUS    &kp EQUAL   &kp BSPC            &kp DEL
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
-          &caps_rgb   &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
+          &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
           &kp LCTRL   &kp LGUI           &kp LALT            &lt 2 SPACE   &mo 1  &lt_mac 6 0            &kp SPACE  &mt RALT LC(SPACE) &mt RCTRL LS(SPACE)      &kp LEFT  &kp DOWN  &kp RIGHT
             >; 
@@ -121,7 +104,7 @@
             bindings = < 
 &kp ESC   &kp GRAVE   &kp N1    &kp N2   &kp N3    &kp N4    &kp N5    &kp N6                 &kp N7    &kp N8   &kp N9     &kp N0    &kp MINUS    &kp EQUAL   &kp BSPC            &kp DEL
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
-          &caps_rgb   &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
+          &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
           &kp LGUI   &kp LALT           &kp LGUI            &lt 5 SPACE   &mo 4    &lt_win 6 0          &kp SPACE  &mt RALT LA(RET) &mt RCTRL LS(SPACE)        &kp LEFT  &kp DOWN  &kp RIGHT
             >; 
