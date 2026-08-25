@@ -38,6 +38,20 @@
             display-name = "Layer-Tap-nav";
         };
 
+        spc_win: space_win {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&lt_nav 2 SPACE>, <&kp LS(SPACE)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        spc_mac: space_mac {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&lt_nav 5 SPACE>, <&kp LS(SPACE)>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
         lt_mac: layer_tap_mac {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -67,7 +81,7 @@
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
           &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
-          &kp LCTRL   &kp LGUI           &kp LALT        &lt_nav 2 SPACE   &mo 1  &lt_mac 6 0            &kp SPACE  &mt RALT LC(SPACE) &mt RCTRL LS(SPACE)      &kp LEFT  &kp DOWN  &kp RIGHT
+          &kp LCTRL   &kp LGUI           &kp LALT            &spc_win     &mo 1  &lt_mac 6 0            &kp SPACE  &mt RALT LC(SPACE) &mt RCTRL LS(SPACE)      &kp LEFT  &kp DOWN  &kp RIGHT
             >; 
         };
 
@@ -100,7 +114,7 @@
           &kp TAB     &kp Q     &kp W    &kp E     &kp R     &kp T                            &kp Y     &kp U    &kp I      &kp O     &kp P        &kp LBKT    &kp RBKT  &kp BSLH
           &kp CAPS    &kp A     &kp S    &kp D     &kp F     &kp G            &kp BSPC        &kp H     &kp J    &kp K      &kp L     &kp SEMI     &kp SQT               &kp RET
           &kp LSHFT   &kp Z     &kp X    &kp C     &kp V     &kp B            &kp RET         &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH     &kp RSHFT             &kp UP 
-          &kp LGUI   &kp LALT           &kp LGUI        &lt_nav 5 SPACE   &mo 4    &lt_win 6 0          &kp SPACE  &mt RALT LA(RET) &mt RCTRL LS(SPACE)        &kp LEFT  &kp DOWN  &kp RIGHT
+          &kp LGUI   &kp LALT           &kp LGUI             &spc_mac     &mo 4    &lt_win 6 0          &kp SPACE  &mt RALT LA(RET) &mt RCTRL LS(SPACE)        &kp LEFT  &kp DOWN  &kp RIGHT
             >; 
         }; 
 
