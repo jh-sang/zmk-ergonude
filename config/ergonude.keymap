@@ -43,6 +43,7 @@
             #binding-cells = <0>;
             bindings = <&lt_nav 2 SPACE>, <&kp LS(SPACE)>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
+            keep-mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         spc_mac: space_mac {
@@ -50,6 +51,7 @@
             #binding-cells = <0>;
             bindings = <&lt_nav 5 SPACE>, <&kp LS(SPACE)>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
+            keep-mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
         lt_mac: layer_tap_mac {
