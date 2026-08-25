@@ -28,15 +28,15 @@
     };
 
     behaviors {
-        lt_nav: layer_tap_nav {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <2>;
-            flavor = "hold-preferred";
-            tapping-term-ms = <160>;
-            retro-tap;
-            bindings = <&mo>, <&kp>;
-            display-name = "Layer-Tap-nav";
-        };
+        lt_nav: layer_tap_nav {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <160>;
+            retro-tap;
+            bindings = <&mo>, <&kp>;
+            display-name = "Layer-Tap-nav";
+        };
 
         lt_mac: layer_tap_mac {
             compatible = "zmk,behavior-hold-tap";
