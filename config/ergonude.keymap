@@ -53,6 +53,7 @@
             flavor = "tap-unless-interrupted";
             tapping-term-ms = <100000>;
             hold-while-undecided;
+            hold-while-undecided-linger;
             bindings = <&kp>, <&kp>;
             display-name = "Shift-HanEng";
         };
