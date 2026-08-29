@@ -3,6 +3,48 @@
 
 <img width="1273" height="385" alt="스크린샷 2026-08-21 090238" src="https://github.com/user-attachments/assets/2ca57165-14b6-41d3-aba3-f4a2405d6b8b" />
 
+## Ergonude 레이어별 키맵
+
+> 색상: <span style="background:#fef3c7">레이어 키</span> · <span style="background:#dcfce7">한/영</span> · <span style="background:#e0f2fe">마우스</span> · <span style="background:#fee2e2">시스템</span> · 회색 = 미할당. 한/영: ① 왼 Space를 Shift와 함께 누르면(순서 무관) nav 키를 누르지 않는 한 뗄 때 한/영 ② nav 레이어(L2/L5)의 Shift는 hold=Shift, 단독으로 눌렀다 떼면 한/영.
+
+### L0 · default_win
+*Windows 기본 (USB)*
+
+![L0 · default_win](images/L0_default_win.png)
+
+### L1 · fn_win
+*F키 · 숫자패드 · Windows 단축키*
+
+![L1 · fn_win](images/L1_fn_win.png)
+
+### L2 · nav_win
+*내비게이션 · 마우스 · 클립보드 (Ctrl)*
+
+![L2 · nav_win](images/L2_nav_win.png)
+
+### L3 · default_mac
+*Mac 기본 (BLE)*
+
+![L3 · default_mac](images/L3_default_mac.png)
+
+### L4 · fn_mac
+*F키 · 숫자패드 · Mac 단축키*
+
+![L4 · fn_mac](images/L4_fn_mac.png)
+
+### L5 · nav_mac
+*내비게이션 · 마우스 · 클립보드 (Cmd)*
+
+![L5 · nav_mac](images/L5_nav_mac.png)
+
+### L6 · bt-rgb
+*OS 전환 · 블루투스 · 리셋*
+
+![L6 · bt-rgb](images/L6_bt_rgb.png)
+
+> \* L1의 **PC 전원 ⏻**: ZMK가 HID 전원 키(Generic Desktop 페이지)를 아직 지원하지 않아, 펌웨어는 `Ctrl+Alt+Shift+ScrLk`를 보내고 Windows 쪽 매크로가 이를 받아 전원을 끄는 우회 구조.
+
+
 ## 하드웨어
 
 | 항목 | 사양 |
@@ -44,6 +86,7 @@
 - 왼엄지 스페이스: 탭 = Space, 홀드 = nav 레이어 (`&lt`, retro-tap)
 - 오른엄지: 탭 = 한/영(`Shift+Space`), 홀드 = Ctrl
 - 레이어 6 진입: 양 엄지 바깥쪽 키 홀드
+
 
 ## 저장소 구조
 
